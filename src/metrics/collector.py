@@ -62,6 +62,7 @@ class MetricType(Enum):
     DISK_IO = "disk_io"
     
     # Blockchain Metrics
+    BLOCKCHAIN = "blockchain"
     TRANSACTION_TIME = "transaction_time"
     GAS_COST = "gas_cost"
     VALIDATION_SUCCESS_RATE = "validation_success_rate"
@@ -75,6 +76,9 @@ class MetricType(Enum):
     ENERGY_EFFICIENCY = "energy_efficiency"
     CHARGING_OPTIMIZATION = "charging_optimization"
     COST_REDUCTION = "cost_reduction"
+    
+    # ML Performance Metrics
+    ML_PERFORMANCE = "ml_performance"
 
 
 @dataclass
@@ -93,7 +97,11 @@ class MetricPoint:
         """Convert to dictionary for storage."""
         data = asdict(self)
         data["timestamp"] = self.timestamp.isoformat()
-        data["metric_type"] = self.metric_type.value
+        # Handle both MetricType enum and string values
+        if hasattr(self.metric_type, 'value'):
+            data["metric_type"] = self.metric_type.value
+        else:
+            data["metric_type"] = str(self.metric_type)
         return data
 
 
@@ -255,11 +263,21 @@ class MetricsCollector:
         additional_metrics: Optional[Dict[str, float]] = None,
     ) -> None:
         """Record ML model performance metrics."""
+        # Validate inputs
+        if not isinstance(accuracy, (int, float)):
+            raise TypeError(f"accuracy must be a number, got {type(accuracy)}")
+        if not isinstance(loss, (int, float)):
+            raise TypeError(f"loss must be a number, got {type(loss)}")
+        if not isinstance(component, str):
+            raise TypeError(f"component must be a string, got {type(component)}")
+            
         self.record_metric(MetricType.ACCURACY, accuracy, component, station_id)
         self.record_metric(MetricType.LOSS, loss, component, station_id)
         
         if additional_metrics:
             for metric_name, value in additional_metrics.items():
+                if not isinstance(value, (int, float)):
+                    raise TypeError(f"additional metric '{metric_name}' must be a number, got {type(value)}")
                 if hasattr(MetricType, metric_name.upper()):
                     metric_type = MetricType(metric_name.lower())
                     self.record_metric(metric_type, value, component, station_id)
@@ -304,18 +322,105 @@ class MetricsCollector:
         self.record_metric(MetricType.PRIVACY_BUDGET, privacy_budget_remaining, component)
         self.record_metric(MetricType.NOISE_MAGNITUDE, noise_magnitude, component)
     
-    def start_system_monitoring(self) -> None:
+    def record_blockchain_metrics(
+        self,
+        transaction_time: float,
+        gas_used: int,
+        validation_success: bool,
+        component: str,
+    ) -> None:
+        """Record blockchain validation metrics."""
+        # Record general blockchain metric
+        self.record_metric(MetricType.BLOCKCHAIN, transaction_time, component)
+        
+        # Record specific blockchain metrics
+        self.record_metric(MetricType.TRANSACTION_TIME, transaction_time, component)
+        self.record_metric(MetricType.GAS_COST, gas_used, component)
+        self.record_metric(
+            MetricType.VALIDATION_SUCCESS_RATE, 
+            1.0 if validation_success else 0.0, 
+            component
+        )
+    
+    def record_federated_metrics(
+        self,
+        round_id: int,
+        num_clients: int,
+        round_duration: float,
+        convergence_metric: float,
+        component: str,
+    ) -> None:
+        """Record federated learning metrics."""
+        self.record_metric(MetricType.ROUND_DURATION, round_duration, component)
+        self.record_metric(MetricType.CLIENT_PARTICIPATION, num_clients, component)
+        self.record_metric(MetricType.CONVERGENCE_RATE, convergence_metric, component)
+    
+    def record_system_metrics(
+        self,
+        cpu_usage: float,
+        memory_usage: float,
+        network_latency: float,
+        component: str,
+    ) -> None:
+        """Record system performance metrics."""
+        self.record_metric(MetricType.CPU_USAGE, cpu_usage, component)
+        self.record_metric(MetricType.MEMORY_USAGE, memory_usage, component)
+        self.record_metric(MetricType.NETWORK_LATENCY, network_latency, component)
+    
+    def record_custom_metric(
+        self,
+        metric_name: str,
+        value: Union[float, int, str],
+        metric_type: str,
+        component: str,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> None:
+        """Record a custom metric."""
+        # Include metric_name in metadata for easier querying
+        custom_metadata = metadata or {}
+        custom_metadata["metric_name"] = metric_name
+        
+        # Create a custom metric point
+        metric_point = MetricPoint(
+            timestamp=datetime.now(timezone.utc),
+            metric_type=MetricType(metric_type) if hasattr(MetricType, metric_type.upper()) else metric_type,
+            value=value,
+            component=component,
+            station_id=None,
+            experiment_id=self.experiment_id,
+            metadata=custom_metadata,
+        )
+        
+        with self._lock:
+            self._metrics.append(metric_point)
+    
+    def start_system_monitoring(self, interval_seconds: float = None) -> None:
         """Start continuous system metrics collection."""
         if self._is_collecting:
             logger.warning("System monitoring already started")
             return
         
+        # Use provided interval or default collection_interval
+        if interval_seconds is not None:
+            self.collection_interval = interval_seconds
+            
         self._is_collecting = True
         self._collection_thread = threading.Thread(
             target=self._system_monitoring_loop, daemon=True
         )
         self._collection_thread.start()
         logger.info("System monitoring started")
+    
+    @property
+    def metrics(self) -> List[Dict[str, Any]]:
+        """Get all metrics as list of dictionaries."""
+        with self._lock:
+            return [m.to_dict() for m in self._metrics]
+    
+    @property
+    def system_monitor(self) -> Optional[threading.Thread]:
+        """Get the system monitoring thread (for testing)."""
+        return self._collection_thread if self._is_collecting else None
     
     def stop_system_monitoring(self) -> None:
         """Stop system metrics collection."""
@@ -383,7 +488,7 @@ class MetricsCollector:
         
         return summary
     
-    def export_metrics(self, format_type: str = "json") -> Union[str, Dict[str, Any]]:
+    def export_metrics(self, format_type: str = "json", file_path: Optional[str] = None) -> Union[str, Dict[str, Any], None]:
         """Export all collected metrics."""
         with self._lock:
             metrics_data = [m.to_dict() for m in self._metrics]
@@ -395,10 +500,65 @@ class MetricsCollector:
             "metrics": metrics_data,
         }
         
-        if format_type == "json":
+        if format_type == "csv" and file_path:
+            import csv
+            import os
+            
+            # Ensure directory exists
+            os.makedirs(os.path.dirname(file_path), exist_ok=True)
+            
+            # Write CSV file
+            with open(file_path, 'w', newline='') as csvfile:
+                if metrics_data:
+                    fieldnames = metrics_data[0].keys()
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    writer.writeheader()
+                    for metric in metrics_data:
+                        writer.writerow(metric)
+            return None
+        elif format_type == "json":
             return json.dumps(export_data, indent=2)
         else:
             return export_data
+    
+    def get_metrics_by_component(self, component: str) -> List[Dict[str, Any]]:
+        """Get all metrics for a specific component."""
+        with self._lock:
+            return [m.to_dict() for m in self._metrics if m.component == component]
+    
+    def get_metrics_since(self, timestamp: float) -> List[Dict[str, Any]]:
+        """Get all metrics since a given timestamp."""
+        cutoff_time = datetime.fromtimestamp(timestamp, tz=timezone.utc)
+        with self._lock:
+            return [m.to_dict() for m in self._metrics if m.timestamp >= cutoff_time]
+    
+    def aggregate_metrics(
+        self, 
+        metric_name: str, 
+        aggregation_type: str = "mean"
+    ) -> Optional[float]:
+        """Aggregate metrics by name and type."""
+        with self._lock:
+            # Find metrics matching the name (looking in metadata or by metric type)
+            matching_values = []
+            for metric in self._metrics:
+                # Check if metric type matches the name
+                if metric.metric_type.value == metric_name:
+                    if isinstance(metric.value, (int, float)):
+                        matching_values.append(metric.value)
+                # Also check metadata for custom metric names
+                elif metric.metadata and metric.metadata.get('metric_name') == metric_name:
+                    if isinstance(metric.value, (int, float)):
+                        matching_values.append(metric.value)
+        
+        if not matching_values:
+            return None
+            
+        # Apply aggregation
+        if aggregation_type in self.aggregations:
+            return float(self.aggregations[aggregation_type](matching_values))
+        else:
+            return None
     
     def clear_metrics(self) -> None:
         """Clear all collected metrics."""
