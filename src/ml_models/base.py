@@ -97,9 +97,13 @@ class EdgeMLModel(ABC, nn.Module):
         
         inference_stats = {
             "mean_time": np.mean(times),
+            "mean_inference_time": np.mean(times),  # For backward compatibility
             "std_time": np.std(times),
+            "std_inference_time": np.std(times),  # For backward compatibility
             "min_time": np.min(times),
+            "min_inference_time": np.min(times),  # For backward compatibility
             "max_time": np.max(times),
+            "max_inference_time": np.max(times),  # For backward compatibility
             "p95_time": np.percentile(times, 95),
             "p99_time": np.percentile(times, 99),
         }
@@ -133,8 +137,10 @@ class EdgeMLModel(ABC, nn.Module):
         
         optimization_report = {
             "original_size_bytes": original_size,
+            "original_size": original_size,  # For backward compatibility
             "original_parameters": self.count_parameters(),
             "optimizations_applied": [],
+            "pruning_applied": False,  # Will be updated if pruning is applied
         }
         
         try:
@@ -142,6 +148,7 @@ class EdgeMLModel(ABC, nn.Module):
             if pruning_ratio > 0:
                 self._apply_pruning(pruning_ratio, structured_pruning)
                 optimization_report["optimizations_applied"].append("pruning")
+                optimization_report["pruning_applied"] = True
                 self.pruning_ratio = pruning_ratio
             
             # Apply quantization
@@ -154,6 +161,7 @@ class EdgeMLModel(ABC, nn.Module):
             optimized_size = self.get_model_size()
             optimization_report.update({
                 "optimized_size_bytes": optimized_size,
+                "optimized_size": optimized_size,  # For backward compatibility
                 "optimized_parameters": self.count_parameters(),
                 "size_reduction_ratio": (original_size - optimized_size) / original_size,
                 "compression_ratio": original_size / optimized_size,
@@ -340,8 +348,15 @@ class EdgeMLModel(ABC, nn.Module):
         """Get comprehensive model summary for research analysis."""
         param_stats = self.count_parameters()
         
+        # Generate architecture string
+        architecture_layers = []
+        for name, module in self.named_modules():
+            if name and not any(child for child in module.children()):  # Only leaf modules
+                architecture_layers.append(f"{name}: {module.__class__.__name__}")
+        
         summary = {
             "model_name": self.model_name,
+            "architecture": " -> ".join(architecture_layers),
             "model_size_bytes": self.get_model_size(),
             "model_size_mb": self.get_model_size() / (1024 * 1024),
             "parameters": param_stats,

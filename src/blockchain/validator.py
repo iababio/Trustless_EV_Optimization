@@ -498,8 +498,21 @@ def create_model_validator(
     contract_address: Optional[str] = None,
     private_key: Optional[str] = None,
     metrics_collector: Optional[MetricsCollector] = None,
+    use_blockchain: bool = True,
+    config: Optional[Dict[str, Any]] = None,
 ) -> ModelValidator:
     """Factory function to create ModelValidator with environment configuration."""
+    
+    # If explicitly disabled or Web3 not available, use mock
+    if not use_blockchain or not HAS_BLOCKCHAIN:
+        logger.warning("Using mock validator (blockchain disabled or unavailable)")
+        return MockModelValidator(metrics_collector)
+    
+    # Use config values if provided
+    if config:
+        web3_provider_url = web3_provider_url or config.get('rpc_url')
+        contract_address = contract_address or config.get('contract_address')
+        private_key = private_key or config.get('private_key')
     
     # Use environment variables as fallback
     web3_provider_url = web3_provider_url or os.getenv("ETHEREUM_NODE_URL", "http://localhost:8545")
@@ -511,13 +524,17 @@ def create_model_validator(
         logger.warning("No contract address provided, using mock validator")
         return MockModelValidator(metrics_collector)
     
-    return ModelValidator(
-        web3_provider_url=web3_provider_url,
-        contract_address=contract_address,
-        contract_abi=MODEL_VALIDATOR_ABI,
-        private_key=private_key,
-        metrics_collector=metrics_collector,
-    )
+    try:
+        return ModelValidator(
+            web3_provider_url=web3_provider_url,
+            contract_address=contract_address,
+            contract_abi=MODEL_VALIDATOR_ABI,
+            private_key=private_key,
+            metrics_collector=metrics_collector,
+        )
+    except Exception as e:
+        logger.warning(f"Failed to create blockchain validator: {e}, using mock")
+        return MockModelValidator(metrics_collector)
 
 
 class MockModelValidator:
@@ -526,39 +543,103 @@ class MockModelValidator:
     def __init__(self, metrics_collector: Optional[MetricsCollector] = None):
         self.metrics_collector = metrics_collector
         self.validation_count = 0
+        self.successful_validations = 0
+        self.validation_history = []
         
         logger.info("MockModelValidator initialized")
     
     def validate_model_update(self, model_hash: str, metadata: str, round_id: int) -> ValidationResult:
-        """Mock validation that always passes."""
+        """Mock validation with basic input validation."""
         import time
+        start_time = time.time()
         time.sleep(0.1)  # Simulate blockchain delay
         
         self.validation_count += 1
         
+        # Basic validation logic
+        is_valid = True
+        error_message = None
+        
+        # Check for invalid inputs
+        if model_hash is None or metadata is None:
+            is_valid = False
+            error_message = "Model hash and metadata cannot be None"
+        elif model_hash == "" or metadata == "":
+            is_valid = False 
+            error_message = "Model hash and metadata cannot be empty"
+        elif round_id <= 0:
+            is_valid = False
+            error_message = "Round ID must be positive"
+        elif not isinstance(model_hash, str) or not model_hash.startswith("0x"):
+            is_valid = False
+            error_message = "Invalid model hash format"
+        elif len(model_hash) != 66:  # 0x + 64 hex chars
+            is_valid = False
+            error_message = "Model hash must be 64 hex characters"
+        
+        # Try to parse metadata as JSON
+        if is_valid and metadata:
+            try:
+                import json
+                json.loads(metadata)
+            except json.JSONDecodeError:
+                is_valid = False
+                error_message = "Metadata must be valid JSON"
+        
+        # Track successful validations
+        if is_valid:
+            self.successful_validations += 1
+            
+        # Record validation in history
+        validation_time = time.time() - start_time
+        history_item = {
+            'model_hash': model_hash,
+            'metadata': metadata,
+            'round_id': round_id,
+            'validation_result': is_valid,
+            'validation_time': validation_time,
+            'timestamp': time.time()
+        }
+        self.validation_history.append(history_item)
+        
         # Record mock metrics
         if self.metrics_collector:
             self.metrics_collector.record_metric(
-                MetricType.TRANSACTION_TIME,
-                0.1,
+                MetricType.BLOCKCHAIN,
+                validation_time,
                 "mock_validator",
                 metadata={"round_id": round_id}
             )
         
         return ValidationResult(
-            is_valid=True,
+            is_valid=is_valid,
             model_hash=model_hash,
             transaction_hash=f"mock_tx_{self.validation_count:06d}",
             gas_used=21000,
-            validation_time=0.1,
-            metadata={"round_id": round_id, "mock": True}
+            validation_time=validation_time,
+            metadata={"round_id": round_id, "mock": True},
+            error_message=error_message
         )
     
     def get_validator_stats(self) -> Dict[str, Any]:
         """Get mock validator stats."""
+        # Calculate average validation time
+        avg_validation_time = 0.0
+        if self.validation_history:
+            avg_validation_time = sum(v['validation_time'] for v in self.validation_history) / len(self.validation_history)
+        
+        # Calculate success rate
+        success_rate = 0.0
+        if self.validation_count > 0:
+            success_rate = self.successful_validations / self.validation_count
+            
         return {
             "network": "mock",
             "contract_address": "0x0000000000000000000000000000000000000000",
-            "validation_count": self.validation_count,
+            "total_validations": self.validation_count,
+            "successful_validations": self.successful_validations,
+            "success_rate": success_rate,
+            "average_validation_time": avg_validation_time,
+            "validation_count": self.validation_count,  # Keep for backward compatibility
             "mock": True,
         }

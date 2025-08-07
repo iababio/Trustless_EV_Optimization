@@ -69,20 +69,27 @@ class LightweightLSTM(EdgeMLModel):
     def _initialize_weights(self) -> None:
         """Initialize weights using Xavier/Glorot initialization."""
         for name, param in self.named_parameters():
-            if 'weight_ih' in name:
-                # Input-hidden weights
-                nn.init.xavier_uniform_(param)
-            elif 'weight_hh' in name:
-                # Hidden-hidden weights
-                nn.init.orthogonal_(param)
-            elif 'bias' in name:
-                # Biases
-                nn.init.zeros_(param)
-                # Set forget gate bias to 1 for better gradient flow
-                if 'bias_ih' in name:
-                    n = param.size(0)
-                    start, end = n // 4, n // 2
-                    param.data[start:end].fill_(1.0)
+            if 'lstm' in name:
+                if 'weight_ih' in name:
+                    # Input-hidden weights
+                    nn.init.xavier_uniform_(param)
+                elif 'weight_hh' in name:
+                    # Hidden-hidden weights
+                    nn.init.orthogonal_(param)
+                elif 'bias' in name:
+                    # Initialize biases with small non-zero values
+                    nn.init.uniform_(param, -0.1, 0.1)
+                    # Set forget gate bias to 1 for better gradient flow
+                    if 'bias_ih' in name:
+                        n = param.size(0)
+                        start, end = n // 4, n // 2
+                        param.data[start:end].fill_(1.0)
+            elif 'output_layers' in name:
+                if 'weight' in name:
+                    nn.init.xavier_uniform_(param)
+                elif 'bias' in name:
+                    # Initialize biases with small non-zero values
+                    nn.init.uniform_(param, -0.1, 0.1)
     
     def forward(self, x: torch.Tensor, hidden: Optional[Tuple[torch.Tensor, torch.Tensor]] = None) -> torch.Tensor:
         """Forward pass through the LSTM."""
