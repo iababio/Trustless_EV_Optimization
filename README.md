@@ -89,8 +89,8 @@ The escalating adoption of Electric Vehicles presents both opportunities for sus
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/your-org/ev-charging-optimization.git
-cd ev-charging-optimization
+git clone https://github.com/iababio/Trustless_EV_Optimization.git
+cd Trustless_EV_Optimization
 ```
 
 2. **Install Python dependencies**
@@ -111,10 +111,6 @@ npm install
 npx hardhat deploy --network localhost
 ```
 
-5. **Start the services**
-```bash
-docker-compose up -d
-```
 
 ## 🚀 Quick Start
 
@@ -143,8 +139,8 @@ python run_demo.py  # Automatically installs dependencies and runs full demo
 
 **Option 3: Manual Installation**
 ```bash
-git clone https://github.com/your-org/ev-charging-optimization.git
-cd ev-charging-optimization
+git clone https://github.com/iababio/Trustless_EV_Optimization.git
+cd Trustless_EV_Optimization
 
 # Install core dependencies first
 python install.py  # Handles compatibility issues automatically
@@ -153,6 +149,19 @@ python install.py  # Handles compatibility issues automatically
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+```
+
+### Running the Demo
+
+```bash
+Terminal 1 - Start blockchain:
+./start_blockchain.sh
+
+Terminal 2 - Deploy contracts:
+./deploy_contracts.sh
+
+Terminal 3 - Run with blockchain:
+python examples/complete_demo.py
 ```
 
 **Features Available Based on Installation:**
@@ -556,20 +565,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Ethereum](https://ethereum.org/) blockchain platform
 - Research contributions from the EV charging optimization community
 
-## 📞 Contact
-
-- **Project Lead**: [Your Name](mailto:your.email@example.com)
-- **Technical Issues**: [GitHub Issues](https://github.com/your-org/ev-charging-optimization/issues)
-- **Community**: [Discord Server](https://discord.gg/your-server)
-
-## 🗺️ Roadmap
-
-- [ ] **Phase 1**: Core federated learning implementation
-- [ ] **Phase 2**: Smart contract integration and testing
-- [ ] **Phase 3**: Edge device optimization and deployment
-- [ ] **Phase 4**: Large-scale pilot deployment
-- [ ] **Phase 5**: Performance optimization and scaling
-
----
-
-*For detailed technical specifications, please refer to the [full technical documentation](docs/technical_specification.md).*
