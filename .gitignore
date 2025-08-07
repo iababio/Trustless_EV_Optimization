@@ -1,0 +1,5 @@
+Code/
+venv/
+contracts/
+contracts/node_modules/
+tests/

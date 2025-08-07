@@ -1,0 +1,347 @@
+{
+  "experiment_id": "ev_demo_20250807_062140",
+  "export_timestamp": "2025-08-07T10:21:41.950787+00:00",
+  "total_metrics": 36,
+  "metrics": [
+    {
+      "timestamp": "2025-08-07T10:21:40.801970+00:00",
+      "metric_type": "inference_time",
+      "value": 0.0032,
+      "component": "data_loader",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "operation": "load_data",
+        "file_size": 15504
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.806207+00:00",
+      "metric_type": "inference_time",
+      "value": 0.004176,
+      "component": "data_validator",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "operation": "validate_data"
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.806256+00:00",
+      "metric_type": "accuracy",
+      "value": 0.9747292418772563,
+      "component": "data_validator",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.815139+00:00",
+      "metric_type": "inference_time",
+      "value": 0.008854,
+      "component": "feature_engineer",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "operation": "create_features",
+        "features_count": 22
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.823490+00:00",
+      "metric_type": "inference_time",
+      "value": 0.024726,
+      "component": "data_pipeline",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "operation": "full_pipeline"
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.940154+00:00",
+      "metric_type": "cpu_usage",
+      "value": 27.3,
+      "component": "system",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.940520+00:00",
+      "metric_type": "memory_usage",
+      "value": 84.5,
+      "component": "system",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.940561+00:00",
+      "metric_type": "disk_io",
+      "value": 46118324847616,
+      "component": "system",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:40.940581+00:00",
+      "metric_type": "network_latency",
+      "value": 14.895,
+      "component": "system",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.628226+00:00",
+      "metric_type": "accuracy",
+      "value": 7.942791287780534e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.628274+00:00",
+      "metric_type": "loss",
+      "value": 125900323.42857143,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.696136+00:00",
+      "metric_type": "accuracy",
+      "value": 7.730465140817518e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.696162+00:00",
+      "metric_type": "loss",
+      "value": 129358321.14285715,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.703330+00:00",
+      "metric_type": "accuracy",
+      "value": 7.746849333965348e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.703357+00:00",
+      "metric_type": "loss",
+      "value": 129084734.85714285,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.709980+00:00",
+      "metric_type": "accuracy",
+      "value": 7.965415214023852e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.709998+00:00",
+      "metric_type": "loss",
+      "value": 125542732.57142857,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.716117+00:00",
+      "metric_type": "accuracy",
+      "value": 7.976872584941286e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.716128+00:00",
+      "metric_type": "loss",
+      "value": 125362412.57142857,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.722209+00:00",
+      "metric_type": "accuracy",
+      "value": 7.856791372356827e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.722219+00:00",
+      "metric_type": "loss",
+      "value": 127278420.0,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.728192+00:00",
+      "metric_type": "accuracy",
+      "value": 7.905777953515944e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.728202+00:00",
+      "metric_type": "loss",
+      "value": 126489764.57142857,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.734101+00:00",
+      "metric_type": "accuracy",
+      "value": 8.019832955243082e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.734113+00:00",
+      "metric_type": "loss",
+      "value": 124690875.42857143,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.740009+00:00",
+      "metric_type": "accuracy",
+      "value": 7.84696890564025e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.740019+00:00",
+      "metric_type": "loss",
+      "value": 127437741.14285715,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.745931+00:00",
+      "metric_type": "accuracy",
+      "value": 7.907590121502686e-09,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.745943+00:00",
+      "metric_type": "loss",
+      "value": 126460777.14285715,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.747205+00:00",
+      "metric_type": "model_size",
+      "value": 60036,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.751697+00:00",
+      "metric_type": "model_size",
+      "value": 60036,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.751730+00:00",
+      "metric_type": "model_size",
+      "value": 60036,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "optimization": "post_optimization"
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.751735+00:00",
+      "metric_type": "inference_time",
+      "value": 0.00455,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "operation": "optimization"
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.756405+00:00",
+      "metric_type": "inference_time",
+      "value": 6.385999999999999e-05,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {
+        "batch_size": 1
+      }
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.756480+00:00",
+      "metric_type": "model_size",
+      "value": 60036,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    },
+    {
+      "timestamp": "2025-08-07T10:21:41.756500+00:00",
+      "metric_type": "model_size",
+      "value": 60036,
+      "component": "LightweightLSTM",
+      "station_id": null,
+      "experiment_id": "ev_demo_20250807_062140",
+      "metadata": {}
+    }
+  ]
+}

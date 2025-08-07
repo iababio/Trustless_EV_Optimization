@@ -1,0 +1,717 @@
+{
+  "experiment_id": "ev_demo_20250807_062039",
+  "demo_duration_seconds": 1.144836,
+  "config": {
+    "num_clients": 5,
+    "num_fl_rounds": 10,
+    "local_epochs": 3,
+    "train_test_split": 0.8,
+    "model_type": "lstm",
+    "available_models": [
+      "lstm",
+      "xgboost"
+    ],
+    "enable_blockchain": false,
+    "enable_federated_learning": true,
+    "enable_privacy": true,
+    "privacy_epsilon": 1.0
+  },
+  "data_processing": {
+    "processing_time_seconds": 0.022022,
+    "validation_report": {
+      "original_rows": 277,
+      "validation_errors": [
+        "Removed 7 invalid records"
+      ],
+      "data_quality_score": 0.9747292418772563,
+      "cleaned_rows": 270,
+      "rows_removed": 7
+    },
+    "insights": {
+      "dataset_summary": {
+        "total_records": 270,
+        "date_range": {
+          "start": "2018-08-24T09:50:00",
+          "end": "2019-09-27T12:48:00"
+        },
+        "total_energy_consumed": 1566962.6099999999,
+        "avg_session_duration": 52745.6037037037,
+        "unique_chargers": 17,
+        "avg_energy_per_session": 5803.565222222222
+      },
+      "patterns": {
+        "peak_hours": [
+          22,
+          5,
+          16
+        ]
+      },
+      "quality_metrics": {
+        "missing_values": {
+          "timestamp": 0,
+          "meter_start_wh": 0,
+          "meter_end_wh": 0,
+          "meter_total_wh": 0,
+          "duration_seconds": 0,
+          "charger_name": 0,
+          "hour": 0,
+          "day_of_week": 0,
+          "month": 0,
+          "quarter": 0,
+          "is_weekend": 0,
+          "is_peak_hour": 0,
+          "timestamp_numeric": 0,
+          "energy_per_second": 0,
+          "energy_per_minute": 0,
+          "charging_rate_category": 0,
+          "session_type": 0,
+          "charger_popularity": 0,
+          "energy_rolling_mean": 0,
+          "energy_rolling_std": 1,
+          "energy_lag_1": 1,
+          "energy_diff": 1
+        },
+        "duplicate_records": 0,
+        "data_completeness": 0.9994949494949495
+      },
+      "correlations": {
+        "meter_start_wh": {
+          "meter_start_wh": 1.0,
+          "meter_end_wh": 0.9996770249783707,
+          "meter_total_wh": -0.18263590462384696,
+          "duration_seconds": -0.1933224044744649,
+          "hour": 0.08116800121239448,
+          "day_of_week": 0.05995774425762581,
+          "month": -0.6406335831737087,
+          "quarter": -0.586206142135187,
+          "is_weekend": 0.29616834343824827,
+          "is_peak_hour": 0.01943221595417342,
+          "timestamp_numeric": 0.10974422050238891,
+          "energy_per_second": -0.026893202015202514,
+          "energy_per_minute": -0.026893202015202466,
+          "charger_popularity": 0.4962197114459323,
+          "energy_rolling_mean": -0.18489702169687305,
+          "energy_rolling_std": -0.12527614256376735,
+          "energy_lag_1": -0.07687756362536954,
+          "energy_diff": -0.08124238456770486
+        },
+        "meter_end_wh": {
+          "meter_start_wh": 0.9996770249783707,
+          "meter_end_wh": 1.0,
+          "meter_total_wh": -0.15759086204125675,
+          "duration_seconds": -0.18797737712982157,
+          "hour": 0.0841385948513166,
+          "day_of_week": 0.05892365679822645,
+          "month": -0.6387402431286471,
+          "quarter": -0.5841528724897689,
+          "is_weekend": 0.2957700636250667,
+          "is_peak_hour": 0.015937285241173736,
+          "timestamp_numeric": 0.1109732806277368,
+          "energy_per_second": -0.023788635351621467,
+          "energy_per_minute": -0.023788635351621467,
+          "charger_popularity": 0.4975234742183158,
+          "energy_rolling_mean": -0.17278311233894336,
+          "energy_rolling_std": -0.11335466702717892,
+          "energy_lag_1": -0.07439779629894196,
+          "energy_diff": -0.06432919328231791
+        },
+        "meter_total_wh": {
+          "meter_start_wh": -0.18263590462384696,
+          "meter_end_wh": -0.15759086204125675,
+          "meter_total_wh": 1.0,
+          "duration_seconds": 0.23967694990751132,
+          "hour": 0.10111438364851875,
+          "day_of_week": -0.05020735906412756,
+          "month": 0.18224624517697868,
+          "quarter": 0.17917316502427677,
+          "is_weekend": -0.0657987243685849,
+          "is_peak_hour": -0.13851579960661475,
+          "timestamp_numeric": 0.028877095552449904,
+          "energy_per_second": 0.12468307003669347,
+          "energy_per_minute": 0.12468307003669346,
+          "charger_popularity": -0.03398812946128809,
+          "energy_rolling_mean": 0.5001135129404879,
+          "energy_rolling_std": 0.48222552190537304,
+          "energy_lag_1": 0.10908906545785885,
+          "energy_diff": 0.6674668454069312
+        },
+        "duration_seconds": {
+          "meter_start_wh": -0.1933224044744649,
+          "meter_end_wh": -0.18797737712982157,
+          "meter_total_wh": 0.23967694990751132,
+          "duration_seconds": 1.0,
+          "hour": 0.1850148212894089,
+          "day_of_week": 0.024160337584896163,
+          "month": 0.21117927745074308,
+          "quarter": 0.2521451326264262,
+          "is_weekend": -0.0889960769376261,
+          "is_peak_hour": -0.15001725600741891,
+          "timestamp_numeric": -0.00015890969497808666,
+          "energy_per_second": -0.0845182156080103,
+          "energy_per_minute": -0.08451821560801029,
+          "charger_popularity": -0.029973463695002187,
+          "energy_rolling_mean": 0.26401967999373344,
+          "energy_rolling_std": 0.19037678542593914,
+          "energy_lag_1": 0.07588530262016492,
+          "energy_diff": 0.12206934747183878
+        },
+        "hour": {
+          "meter_start_wh": 0.08116800121239448,
+          "meter_end_wh": 0.0841385948513166,
+          "meter_total_wh": 0.10111438364851875,
+          "duration_seconds": 0.1850148212894089,
+          "hour": 1.0,
+          "day_of_week": -0.07885850910637322,
+          "month": -0.013634014940000145,
+          "quarter": 0.013565658158738407,
+          "is_weekend": -0.024793591935618687,
+          "is_peak_hour": -0.16316418162988405,
+          "timestamp_numeric": 0.02378430782877923,
+          "energy_per_second": 0.03475261137926107,
+          "energy_per_minute": 0.034752611379261056,
+          "charger_popularity": 0.09271685040611084,
+          "energy_rolling_mean": 0.08263219621382678,
+          "energy_rolling_std": 0.13548695830425195,
+          "energy_lag_1": 0.07474837148399384,
+          "energy_diff": 0.01916347574431669
+        },
+        "day_of_week": {
+          "meter_start_wh": 0.05995774425762581,
+          "meter_end_wh": 0.05892365679822645,
+          "meter_total_wh": -0.05020735906412756,
+          "duration_seconds": 0.024160337584896163,
+          "hour": -0.07885850910637322,
+          "day_of_week": 1.0,
+          "month": -0.14293754399391373,
+          "quarter": -0.12846714362143424,
+          "is_weekend": 0.6502126635608699,
+          "is_peak_hour": 0.10481588032908766,
+          "timestamp_numeric": -0.11218183893070253,
+          "energy_per_second": -0.023774004944504244,
+          "energy_per_minute": -0.023774004944504233,
+          "charger_popularity": 0.05571509510187765,
+          "energy_rolling_mean": -0.06936689416189398,
+          "energy_rolling_std": -0.06479933700588578,
+          "energy_lag_1": -0.049262021316530416,
+          "energy_diff": 0.0009456905704575588
+        },
+        "month": {
+          "meter_start_wh": -0.6406335831737087,
+          "meter_end_wh": -0.6387402431286471,
+          "meter_total_wh": 0.18224624517697868,
+          "duration_seconds": 0.21117927745074308,
+          "hour": -0.013634014940000145,
+          "day_of_week": -0.14293754399391373,
+          "month": 1.0,
+          "quarter": 0.9770289466562444,
+          "is_weekend": -0.3512670718182854,
+          "is_peak_hour": -0.02621388319694945,
+          "timestamp_numeric": -0.03632800191836629,
+          "energy_per_second": 0.03663396574965568,
+          "energy_per_minute": 0.03663396574965565,
+          "charger_popularity": -0.38830184479645397,
+          "energy_rolling_mean": 0.36772832318894716,
+          "energy_rolling_std": 0.22360282799304834,
+          "energy_lag_1": 0.18579164488810776,
+          "energy_diff": -0.0019180068723585273
+        },
+        "quarter": {
+          "meter_start_wh": -0.586206142135187,
+          "meter_end_wh": -0.5841528724897689,
+          "meter_total_wh": 0.17917316502427677,
+          "duration_seconds": 0.2521451326264262,
+          "hour": 0.013565658158738407,
+          "day_of_week": -0.12846714362143424,
+          "month": 0.9770289466562444,
+          "quarter": 1.0,
+          "is_weekend": -0.32986340582222057,
+          "is_peak_hour": -0.037553437587663586,
+          "timestamp_numeric": -0.04991725857557664,
+          "energy_per_second": 0.05376016565861555,
+          "energy_per_minute": 0.053760165658615564,
+          "charger_popularity": -0.35550530345220877,
+          "energy_rolling_mean": 0.35762687544508687,
+          "energy_rolling_std": 0.21277776452504968,
+          "energy_lag_1": 0.1903731301817123,
+          "energy_diff": -0.007604518464033376
+        },
+        "is_weekend": {
+          "meter_start_wh": 0.29616834343824827,
+          "meter_end_wh": 0.2957700636250667,
+          "meter_total_wh": -0.0657987243685849,
+          "duration_seconds": -0.0889960769376261,
+          "hour": -0.024793591935618687,
+          "day_of_week": 0.6502126635608699,
+          "month": -0.3512670718182854,
+          "quarter": -0.32986340582222057,
+          "is_weekend": 1.0,
+          "is_peak_hour": 0.14453265144114436,
+          "timestamp_numeric": 0.027052628688965703,
+          "energy_per_second": -0.04904430667429757,
+          "energy_per_minute": -0.049044306674297516,
+          "charger_popularity": 0.11668128140836181,
+          "energy_rolling_mean": -0.055109946133251,
+          "energy_rolling_std": -0.05158043534544824,
+          "energy_lag_1": -0.0017125568059018325,
+          "energy_diff": -0.04854693638597996
+        },
+        "is_peak_hour": {
+          "meter_start_wh": 0.01943221595417342,
+          "meter_end_wh": 0.015937285241173736,
+          "meter_total_wh": -0.13851579960661475,
+          "duration_seconds": -0.15001725600741891,
+          "hour": -0.16316418162988405,
+          "day_of_week": 0.10481588032908766,
+          "month": -0.02621388319694945,
+          "quarter": -0.037553437587663586,
+          "is_weekend": 0.14453265144114436,
+          "is_peak_hour": 1.0,
+          "timestamp_numeric": 0.05255225541852323,
+          "energy_per_second": 0.042324518490603605,
+          "energy_per_minute": 0.04232451849060362,
+          "charger_popularity": -0.03673322594544792,
+          "energy_rolling_mean": -0.1410566634717628,
+          "energy_rolling_std": -0.08599774486676988,
+          "energy_lag_1": -0.08654564361367811,
+          "energy_diff": -0.03736081285490724
+        },
+        "timestamp_numeric": {
+          "meter_start_wh": 0.10974422050238891,
+          "meter_end_wh": 0.1109732806277368,
+          "meter_total_wh": 0.028877095552449904,
+          "duration_seconds": -0.00015890969497808666,
+          "hour": 0.02378430782877923,
+          "day_of_week": -0.11218183893070253,
+          "month": -0.03632800191836629,
+          "quarter": -0.04991725857557664,
+          "is_weekend": 0.027052628688965703,
+          "is_peak_hour": 0.05255225541852323,
+          "timestamp_numeric": 1.0,
+          "energy_per_second": 0.06390663343932128,
+          "energy_per_minute": 0.06390663343932126,
+          "charger_popularity": -0.3014331376878108,
+          "energy_rolling_mean": 0.07013413874044862,
+          "energy_rolling_std": 0.03687215233490213,
+          "energy_lag_1": 0.025072444244597144,
+          "energy_diff": 0.0007238440655396714
+        },
+        "energy_per_second": {
+          "meter_start_wh": -0.026893202015202514,
+          "meter_end_wh": -0.023788635351621467,
+          "meter_total_wh": 0.12468307003669347,
+          "duration_seconds": -0.0845182156080103,
+          "hour": 0.03475261137926107,
+          "day_of_week": -0.023774004944504244,
+          "month": 0.03663396574965568,
+          "quarter": 0.05376016565861555,
+          "is_weekend": -0.04904430667429757,
+          "is_peak_hour": 0.042324518490603605,
+          "timestamp_numeric": 0.06390663343932128,
+          "energy_per_second": 1.0,
+          "energy_per_minute": 0.9999999999999999,
+          "charger_popularity": -0.06116188247344665,
+          "energy_rolling_mean": 0.027596128540523346,
+          "energy_rolling_std": -0.016262683975881174,
+          "energy_lag_1": -0.04388995224523062,
+          "energy_diff": 0.12609203925548632
+        },
+        "energy_per_minute": {
+          "meter_start_wh": -0.026893202015202466,
+          "meter_end_wh": -0.023788635351621467,
+          "meter_total_wh": 0.12468307003669346,
+          "duration_seconds": -0.08451821560801029,
+          "hour": 0.034752611379261056,
+          "day_of_week": -0.023774004944504233,
+          "month": 0.03663396574965565,
+          "quarter": 0.053760165658615564,
+          "is_weekend": -0.049044306674297516,
+          "is_peak_hour": 0.04232451849060362,
+          "timestamp_numeric": 0.06390663343932126,
+          "energy_per_second": 0.9999999999999999,
+          "energy_per_minute": 1.0,
+          "charger_popularity": -0.06116188247344664,
+          "energy_rolling_mean": 0.02759612854052342,
+          "energy_rolling_std": -0.016262683975881178,
+          "energy_lag_1": -0.043889952245230617,
+          "energy_diff": 0.12609203925548637
+        },
+        "charger_popularity": {
+          "meter_start_wh": 0.4962197114459323,
+          "meter_end_wh": 0.4975234742183158,
+          "meter_total_wh": -0.03398812946128809,
+          "duration_seconds": -0.029973463695002187,
+          "hour": 0.09271685040611084,
+          "day_of_week": 0.05571509510187765,
+          "month": -0.38830184479645397,
+          "quarter": -0.35550530345220877,
+          "is_weekend": 0.11668128140836181,
+          "is_peak_hour": -0.03673322594544792,
+          "timestamp_numeric": -0.3014331376878108,
+          "energy_per_second": -0.06116188247344665,
+          "energy_per_minute": -0.06116188247344664,
+          "charger_popularity": 1.0,
+          "energy_rolling_mean": -0.08396970990384652,
+          "energy_rolling_std": -0.013248891077933974,
+          "energy_lag_1": -0.026739306343936578,
+          "energy_diff": -0.006906237575920512
+        },
+        "energy_rolling_mean": {
+          "meter_start_wh": -0.18489702169687305,
+          "meter_end_wh": -0.17278311233894336,
+          "meter_total_wh": 0.5001135129404879,
+          "duration_seconds": 0.26401967999373344,
+          "hour": 0.08263219621382678,
+          "day_of_week": -0.06936689416189398,
+          "month": 0.36772832318894716,
+          "quarter": 0.35762687544508687,
+          "is_weekend": -0.055109946133251,
+          "is_peak_hour": -0.1410566634717628,
+          "timestamp_numeric": 0.07013413874044862,
+          "energy_per_second": 0.027596128540523346,
+          "energy_per_minute": 0.02759612854052342,
+          "charger_popularity": -0.08396970990384652,
+          "energy_rolling_mean": 1.0,
+          "energy_rolling_std": 0.859018368558469,
+          "energy_lag_1": 0.5158761983442653,
+          "energy_diff": -0.012477056237423614
+        },
+        "energy_rolling_std": {
+          "meter_start_wh": -0.12527614256376735,
+          "meter_end_wh": -0.11335466702717892,
+          "meter_total_wh": 0.48222552190537304,
+          "duration_seconds": 0.19037678542593914,
+          "hour": 0.13548695830425195,
+          "day_of_week": -0.06479933700588578,
+          "month": 0.22360282799304834,
+          "quarter": 0.21277776452504968,
+          "is_weekend": -0.05158043534544824,
+          "is_peak_hour": -0.08599774486676988,
+          "timestamp_numeric": 0.03687215233490213,
+          "energy_per_second": -0.016262683975881174,
+          "energy_per_minute": -0.016262683975881178,
+          "charger_popularity": -0.013248891077933974,
+          "energy_rolling_mean": 0.859018368558469,
+          "energy_rolling_std": 1.0,
+          "energy_lag_1": 0.46983989082244965,
+          "energy_diff": 0.009315024217592487
+        },
+        "energy_lag_1": {
+          "meter_start_wh": -0.07687756362536954,
+          "meter_end_wh": -0.07439779629894196,
+          "meter_total_wh": 0.10908906545785885,
+          "duration_seconds": 0.07588530262016492,
+          "hour": 0.07474837148399384,
+          "day_of_week": -0.049262021316530416,
+          "month": 0.18579164488810776,
+          "quarter": 0.1903731301817123,
+          "is_weekend": -0.0017125568059018325,
+          "is_peak_hour": -0.08654564361367811,
+          "timestamp_numeric": 0.025072444244597144,
+          "energy_per_second": -0.04388995224523062,
+          "energy_per_minute": -0.043889952245230617,
+          "charger_popularity": -0.026739306343936578,
+          "energy_rolling_mean": 0.5158761983442653,
+          "energy_rolling_std": 0.46983989082244965,
+          "energy_lag_1": 1.0,
+          "energy_diff": -0.6673821585344335
+        },
+        "energy_diff": {
+          "meter_start_wh": -0.08124238456770486,
+          "meter_end_wh": -0.06432919328231791,
+          "meter_total_wh": 0.6674668454069312,
+          "duration_seconds": 0.12206934747183878,
+          "hour": 0.01916347574431669,
+          "day_of_week": 0.0009456905704575588,
+          "month": -0.0019180068723585273,
+          "quarter": -0.007604518464033376,
+          "is_weekend": -0.04854693638597996,
+          "is_peak_hour": -0.03736081285490724,
+          "timestamp_numeric": 0.0007238440655396714,
+          "energy_per_second": 0.12609203925548632,
+          "energy_per_minute": 0.12609203925548637,
+          "charger_popularity": -0.006906237575920512,
+          "energy_rolling_mean": -0.012477056237423614,
+          "energy_rolling_std": 0.009315024217592487,
+          "energy_lag_1": -0.6673821585344335,
+          "energy_diff": 1.0
+        }
+      }
+    },
+    "pipeline_status": "success"
+  },
+  "ml_models": {
+    "lstm": {
+      "training_summary": {
+        "total_epochs": 10,
+        "final_train_loss": 126354620.85714285,
+        "final_val_loss": 169542584.0,
+        "best_val_loss": 169542584.0,
+        "total_training_time_seconds": 0,
+        "average_epoch_time": NaN
+      },
+      "optimization_report": {
+        "original_size_bytes": 60036,
+        "original_parameters": {
+          "total_parameters": 15009,
+          "trainable_parameters": 15009,
+          "non_trainable_parameters": 0
+        },
+        "optimizations_applied": [
+          "pruning"
+        ],
+        "optimized_size_bytes": 60036,
+        "optimized_parameters": {
+          "total_parameters": 15009,
+          "trainable_parameters": 15009,
+          "non_trainable_parameters": 0
+        },
+        "size_reduction_ratio": 0.0,
+        "compression_ratio": 1.0,
+        "optimization_time_seconds": 0.005586
+      },
+      "inference_stats": {
+        "mean_time": 6.212000000000001e-05,
+        "std_time": 6.823488843692789e-07,
+        "min_time": 6.1e-05,
+        "max_time": 6.4e-05,
+        "p95_time": 6.3e-05,
+        "p99_time": 6.4e-05
+      },
+      "model_summary": {
+        "model_name": "LightweightLSTM",
+        "model_size_bytes": 60036,
+        "model_size_mb": 0.057254791259765625,
+        "parameters": {
+          "total_parameters": 15009,
+          "trainable_parameters": 15009,
+          "non_trainable_parameters": 0
+        },
+        "optimization_status": {
+          "optimization_applied": true,
+          "pruning_ratio": 0.5,
+          "quantized": false
+        },
+        "device": "cpu",
+        "training_history": {
+          "train_loss": [
+            125164472.57142857,
+            129624137.71428572,
+            126734316.85714285,
+            126960210.28571428,
+            124674357.14285715,
+            124018276.28571428,
+            124967258.28571428,
+            127327417.14285715,
+            124218940.57142857,
+            126354620.85714285
+          ],
+          "val_loss": [
+            169549148.0,
+            169548904.0,
+            169547604.0,
+            169546720.0,
+            169546188.0,
+            169544716.0,
+            169544392.0,
+            169543872.0,
+            169543232.0,
+            169542584.0
+          ],
+          "learning_rates": [
+            0.001,
+            0.001,
+            0.001,
+            0.0005,
+            0.0005,
+            0.0005,
+            0.00025,
+            0.00025,
+            0.00025,
+            0.000125
+          ],
+          "epoch_times": []
+        }
+      },
+      "status": "success"
+    }
+  },
+  "federated_learning": {
+    "num_clients": 5,
+    "simulated_rounds": 10,
+    "client_info": [
+      {
+        "station_id": "station_000",
+        "model_type": "LightweightLSTM",
+        "current_round": 0,
+        "total_rounds_participated": 0,
+        "data_samples": 54,
+        "privacy_epsilon": 1.0,
+        "min_samples_for_training": 10
+      },
+      {
+        "station_id": "station_001",
+        "model_type": "LightweightLSTM",
+        "current_round": 0,
+        "total_rounds_participated": 0,
+        "data_samples": 54,
+        "privacy_epsilon": 1.0,
+        "min_samples_for_training": 10
+      },
+      {
+        "station_id": "station_002",
+        "model_type": "LightweightLSTM",
+        "current_round": 0,
+        "total_rounds_participated": 0,
+        "data_samples": 54,
+        "privacy_epsilon": 1.0,
+        "min_samples_for_training": 10
+      },
+      {
+        "station_id": "station_003",
+        "model_type": "LightweightLSTM",
+        "current_round": 0,
+        "total_rounds_participated": 0,
+        "data_samples": 54,
+        "privacy_epsilon": 1.0,
+        "min_samples_for_training": 10
+      },
+      {
+        "station_id": "station_004",
+        "model_type": "LightweightLSTM",
+        "current_round": 0,
+        "total_rounds_participated": 0,
+        "data_samples": 54,
+        "privacy_epsilon": 1.0,
+        "min_samples_for_training": 10
+      }
+    ],
+    "strategy_metrics": {
+      "current_round": 0,
+      "total_rounds": 0,
+      "active_clients": 0,
+      "avg_client_reputation": 0.0,
+      "blockchain_validation_enabled": false
+    }
+  },
+  "blockchain_validation": {
+    "enabled": false,
+    "message": "Blockchain validation disabled"
+  },
+  "analysis": {
+    "metrics_summary": {
+      "accuracy": {
+        "count": 11,
+        "numeric_count": 11,
+        "mean": 0.0886117564775441,
+        "std": 0.280214952836409,
+        "min": 7.714612493620304e-09,
+        "max": 0.9747292418772563,
+        "median": 7.989487523624844e-09,
+        "p95": 0.4873646249702919,
+        "p99": 0.8772563184958637
+      },
+      "loss": {
+        "count": 10,
+        "numeric_count": 10,
+        "mean": 126004400.77142859,
+        "std": 1646347.164241014,
+        "min": 124018276.28571428,
+        "max": 129624137.71428572,
+        "median": 125759546.7142857,
+        "p95": 128590613.45714286,
+        "p99": 129417432.86285715
+      },
+      "inference_time": {
+        "count": 6,
+        "numeric_count": 6,
+        "mean": 0.00729352,
+        "std": 0.006891059545430345,
+        "min": 6.212000000000001e-05,
+        "max": 0.022022,
+        "median": 0.0056475,
+        "p95": 0.01802575,
+        "p99": 0.021222750000000002
+      },
+      "model_size": {
+        "count": 5,
+        "numeric_count": 5,
+        "mean": 60036.0,
+        "std": 0.0,
+        "min": 60036.0,
+        "max": 60036.0,
+        "median": 60036.0,
+        "p95": 60036.0,
+        "p99": 60036.0
+      },
+      "cpu_usage": {
+        "count": 1,
+        "numeric_count": 1,
+        "mean": 49.6,
+        "std": 0.0,
+        "min": 49.6,
+        "max": 49.6,
+        "median": 49.6,
+        "p95": 49.6,
+        "p99": 49.6
+      },
+      "memory_usage": {
+        "count": 1,
+        "numeric_count": 1,
+        "mean": 84.9,
+        "std": 0.0,
+        "min": 84.9,
+        "max": 84.9,
+        "median": 84.9,
+        "p95": 84.9,
+        "p99": 84.9
+      },
+      "network_latency": {
+        "count": 1,
+        "numeric_count": 1,
+        "mean": 17.879,
+        "std": 0.0,
+        "min": 17.879,
+        "max": 17.879,
+        "median": 17.879,
+        "p95": 17.879,
+        "p99": 17.879
+      },
+      "disk_io": {
+        "count": 1,
+        "numeric_count": 1,
+        "mean": 46114071397376.0,
+        "std": 0.0,
+        "min": 46114071397376.0,
+        "max": 46114071397376.0,
+        "median": 46114071397376.0,
+        "p95": 46114071397376.0,
+        "p99": 46114071397376.0
+      }
+    },
+    "kpis": {
+      "avg_model_accuracy": 0.0886117564775441,
+      "max_model_accuracy": 0.9747292418772563,
+      "avg_inference_time": 0.00729352,
+      "p95_inference_time": 0.01802575,
+      "avg_cpu_usage": 49.6,
+      "max_cpu_usage": 49.6,
+      "avg_memory_usage": 84.9,
+      "max_memory_usage": 84.9
+    },
+    "research_insights": {
+      "model_performance": {
+        "accuracy_level": "poor",
+        "edge_readiness": "ready"
+      },
+      "system_efficiency": {
+        "resource_utilization": "moderate"
+      },
+      "federated_learning": {},
+      "recommendations": [
+        "Investigate data quality and feature engineering improvements"
+      ]
+    },
+    "total_metrics_collected": 36
+  },
+  "timestamp": "2025-08-07T06:20:40.233357"
+}

@@ -1,0 +1,74 @@
+{
+  "timestamp": "20250807_061439",
+  "data_analysis": {
+    "total_records": 277,
+    "total_energy_kwh": 1716.65662,
+    "avg_energy_per_session_kwh": 6.1973163176895305,
+    "avg_duration_minutes": 1608.5008423586041,
+    "unique_chargers": 16,
+    "peak_hours": [
+      10,
+      8,
+      9
+    ],
+    "top_chargers": {
+      "charger_4": 77,
+      "charger_3": 35,
+      "charger_2": 28,
+      "charger_8": 27,
+      "charger_5": 22
+    },
+    "energy_distribution": {
+      "min_kwh": 0.0,
+      "max_kwh": 126.35092,
+      "median_kwh": 1.38028,
+      "std_kwh": 12.260182878137094
+    },
+    "energy_duration_correlation": 0.01858877119883045
+  },
+  "available_components": {
+    "torch": {
+      "available": true,
+      "version": "2.4.1",
+      "cuda_available": false
+    },
+    "xgboost": {
+      "available": true,
+      "version": "3.0.3"
+    },
+    "sklearn": {
+      "available": true,
+      "version": "1.7.1"
+    },
+    "flwr": {
+      "available": true,
+      "version": "1.12.0"
+    }
+  },
+  "ml_results": {
+    "xgboost": {
+      "rmse": 12472.502770915245,
+      "r2_score": -0.08123024583798766,
+      "feature_importance": {
+        "hour": "0.087535016",
+        "day_of_week": "0.4583711",
+        "Meter Start (Wh)": "0.18260051",
+        "Total Duration (s)": "0.27149346"
+      }
+    },
+    "random_forest": {
+      "rmse": 12565.367940050432,
+      "r2_score": -0.09739098476247565,
+      "feature_importance": {
+        "hour": 0.18020334109222752,
+        "day_of_week": 0.16439380117615307,
+        "Meter Start (Wh)": 0.32157359246081113,
+        "Total Duration (s)": 0.3338292652708083
+      }
+    }
+  },
+  "system_info": {
+    "python_version": "3.10.14",
+    "platform": "darwin"
+  }
+}
