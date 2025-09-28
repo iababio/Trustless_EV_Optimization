@@ -1,0 +1,63 @@
+{
+  "research_project": "EV Charging Optimization - Trustless Edge-Based Real-Time ML",
+  "generation_timestamp": "2025-09-27 18:49:44",
+  "total_visualizations": 23,
+  "categories_implemented": {
+    "Exploratory Data Analysis": [
+      "Time-series overview with rolling means",
+      "Hour\u00d7weekday usage heatmaps",
+      "STL seasonal decomposition",
+      "ACF/PACF autocorrelation analysis",
+      "Feature correlation matrix",
+      "Session-level distributions",
+      "Geospatial station analysis"
+    ],
+    "Federated Learning Analytics": [
+      "Global loss & accuracy convergence",
+      "Client participation tracking",
+      "Communication overhead analysis",
+      "Weight divergence monitoring",
+      "Shapley contribution analysis",
+      "Client contribution heatmaps"
+    ],
+    "Forecasting Model Evaluation": [
+      "MAE, RMSE, MAPE comparisons",
+      "CRPS score analysis",
+      "Coverage intervals (80%, 95%)",
+      "Prediction interval visualization"
+    ],
+    "Optimization & Operational Metrics": [
+      "Peak load reduction analysis",
+      "Energy cost savings comparison",
+      "User satisfaction scoring",
+      "Constraint violation tracking"
+    ],
+    "Explainability & Feature Attribution": [
+      "Feature importance comparison",
+      "Partial dependence plots (PDP)",
+      "Individual conditional expectation (ICE)",
+      "SHAP value analysis",
+      "SHAP dependence plots",
+      "Model performance radar charts"
+    ],
+    "Security & Blockchain": [
+      "Security evaluation radar charts",
+      "Attack detection analysis",
+      "Blockchain performance metrics",
+      "Robustness scoring"
+    ]
+  },
+  "research_insights": {
+    "temporal_patterns": "Clear daily and weekly seasonality patterns identified in charging behavior",
+    "optimization_performance": "Multi-objective optimization achieves best balance of cost, satisfaction, and efficiency",
+    "federated_learning": "Global model convergence with efficient communication and client contribution tracking",
+    "explainability": "Battery level, hour of day, and electricity price are most influential features",
+    "forecasting_accuracy": "Transformer models show best prediction performance with reliable uncertainty estimates"
+  },
+  "file_structure": {
+    "charts/": "Basic experiment visualizations (6 files)",
+    "research_analytics/": "Comprehensive EDA and research analytics (10 files)",
+    "explainability_charts/": "Explainability and feature attribution (7 files)",
+    "visualization_index.html": "Master index of all visualizations"
+  }
+}

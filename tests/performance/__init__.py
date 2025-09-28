@@ -1,1 +1,0 @@
-"""Performance tests for the EV optimization system."""

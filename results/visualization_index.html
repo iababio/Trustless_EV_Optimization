@@ -1,0 +1,383 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>EV Charging Optimization Research - Visualization Index</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                color: #333;
+            }
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                padding: 30px;
+            }
+            h1 {
+                text-align: center;
+                color: #2c3e50;
+                font-size: 2.5em;
+                margin-bottom: 10px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            }
+            .subtitle {
+                text-align: center;
+                color: #7f8c8d;
+                font-size: 1.2em;
+                margin-bottom: 30px;
+            }
+            .stats {
+                display: flex;
+                justify-content: space-around;
+                margin: 30px 0;
+                padding: 20px;
+                background: linear-gradient(45deg, #3498db, #2ecc71);
+                border-radius: 10px;
+                color: white;
+            }
+            .stat-item {
+                text-align: center;
+            }
+            .stat-number {
+                font-size: 2em;
+                font-weight: bold;
+                display: block;
+            }
+            .category {
+                margin: 30px 0;
+                border: 2px solid #ecf0f1;
+                border-radius: 10px;
+                overflow: hidden;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+            .category-header {
+                background: linear-gradient(45deg, #34495e, #2c3e50);
+                color: white;
+                padding: 15px 20px;
+                font-size: 1.3em;
+                font-weight: bold;
+            }
+            .category-content {
+                padding: 20px;
+                background: #f8f9fa;
+            }
+            .visualization-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 15px;
+            }
+            .viz-card {
+                background: white;
+                border-radius: 8px;
+                padding: 15px;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                border-left: 4px solid #3498db;
+            }
+            .viz-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            }
+            .viz-link {
+                text-decoration: none;
+                color: #2c3e50;
+                font-weight: bold;
+                font-size: 1.1em;
+                display: block;
+                margin-bottom: 8px;
+            }
+            .viz-link:hover {
+                color: #3498db;
+            }
+            .viz-description {
+                color: #7f8c8d;
+                font-size: 0.95em;
+            }
+            .footer {
+                text-align: center;
+                margin-top: 40px;
+                padding: 20px;
+                background: #ecf0f1;
+                border-radius: 10px;
+                color: #7f8c8d;
+            }
+            .research-areas {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin: 20px 0;
+                justify-content: center;
+            }
+            .research-tag {
+                background: linear-gradient(45deg, #e74c3c, #f39c12);
+                color: white;
+                padding: 8px 15px;
+                border-radius: 20px;
+                font-size: 0.9em;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>🔬 EV Charging Optimization Research</h1>
+            <p class="subtitle">Comprehensive Visualization Dashboard</p>
+            
+            <div class="research-areas">
+                <span class="research-tag">Federated Learning</span>
+                <span class="research-tag">Time Series Analysis</span>
+                <span class="research-tag">Optimization</span>
+                <span class="research-tag">Security</span>
+                <span class="research-tag">Blockchain</span>
+                <span class="research-tag">Explainability</span>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">23</span>
+                    <span>Total Visualizations</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">5</span>
+                    <span>Research Categories</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">3</span>
+                    <span>Directories</span>
+                </div>
+            </div>
+    
+            <div class="category">
+                <div class="category-header">
+                    📊 Basic Experiment Charts (6 visualizations)
+                </div>
+                <div class="category-content">
+                    <div class="visualization-grid">
+        
+                        <div class="viz-card">
+                            <a href="charts/federated_learning_analysis.html" class="viz-link" target="_blank">
+                                📈 Federated Learning Analysis
+                            </a>
+                            <div class="viz-description">Federated Learning Performance Analysis</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="charts/baseline_models_comparison.html" class="viz-link" target="_blank">
+                                📈 Baseline Models Comparison
+                            </a>
+                            <div class="viz-description">Baseline Model Performance Comparison</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="charts/optimization_algorithms_comparison.html" class="viz-link" target="_blank">
+                                📈 Optimization Algorithms Comparison
+                            </a>
+                            <div class="viz-description">Optimization Algorithm Performance</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="charts/security_evaluation_radar.html" class="viz-link" target="_blank">
+                                📈 Security Evaluation Radar
+                            </a>
+                            <div class="viz-description">Security Evaluation Radar Chart</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="charts/blockchain_performance_comparison.html" class="viz-link" target="_blank">
+                                📈 Blockchain Performance Comparison
+                            </a>
+                            <div class="viz-description">Blockchain Performance Analysis</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="charts/comprehensive_dashboard.html" class="viz-link" target="_blank">
+                                📈 Comprehensive Dashboard
+                            </a>
+                            <div class="viz-description">Comprehensive Research Dashboard</div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        
+            <div class="category">
+                <div class="category-header">
+                    📊 Exploratory Data Analysis (EDA) (7 visualizations)
+                </div>
+                <div class="category-content">
+                    <div class="visualization-grid">
+        
+                        <div class="viz-card">
+                            <a href="research_analytics/eda_time_series_overview.html" class="viz-link" target="_blank">
+                                📈 Eda Time Series Overview
+                            </a>
+                            <div class="viz-description">Time-Series Multi-Panel Overview</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/usage_heatmaps.html" class="viz-link" target="_blank">
+                                📈 Usage Heatmaps
+                            </a>
+                            <div class="viz-description">Hour×Weekday Usage Heatmaps</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/seasonal_decomposition.html" class="viz-link" target="_blank">
+                                📈 Seasonal Decomposition
+                            </a>
+                            <div class="viz-description">STL Seasonal Decomposition</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/autocorrelation_analysis.html" class="viz-link" target="_blank">
+                                📈 Autocorrelation Analysis
+                            </a>
+                            <div class="viz-description">ACF/PACF Analysis</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/correlation_analysis.html" class="viz-link" target="_blank">
+                                📈 Correlation Analysis
+                            </a>
+                            <div class="viz-description">Feature Correlation Matrix</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/session_distributions.html" class="viz-link" target="_blank">
+                                📈 Session Distributions
+                            </a>
+                            <div class="viz-description">Session-Level Distributions</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/geospatial_analysis.html" class="viz-link" target="_blank">
+                                📈 Geospatial Analysis
+                            </a>
+                            <div class="viz-description">Geospatial Station Analysis</div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        
+            <div class="category">
+                <div class="category-header">
+                    📊 Federated Learning Analytics (1 visualizations)
+                </div>
+                <div class="category-content">
+                    <div class="visualization-grid">
+        
+                        <div class="viz-card">
+                            <a href="research_analytics/federated_learning_analytics.html" class="viz-link" target="_blank">
+                                📈 Federated Learning Analytics
+                            </a>
+                            <div class="viz-description">FL Convergence & Communication Analysis</div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        
+            <div class="category">
+                <div class="category-header">
+                    📊 Forecasting & Optimization Metrics (2 visualizations)
+                </div>
+                <div class="category-content">
+                    <div class="visualization-grid">
+        
+                        <div class="viz-card">
+                            <a href="research_analytics/forecasting_evaluation.html" class="viz-link" target="_blank">
+                                📈 Forecasting Evaluation
+                            </a>
+                            <div class="viz-description">Forecasting Model Evaluation (MAE, RMSE, MAPE, CRPS)</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="research_analytics/optimization_metrics.html" class="viz-link" target="_blank">
+                                📈 Optimization Metrics
+                            </a>
+                            <div class="viz-description">Optimization & Operational Metrics</div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        
+            <div class="category">
+                <div class="category-header">
+                    📊 Explainability & Feature Attribution (7 visualizations)
+                </div>
+                <div class="category-content">
+                    <div class="visualization-grid">
+        
+                        <div class="viz-card">
+                            <a href="explainability_charts/feature_importance_comparison.html" class="viz-link" target="_blank">
+                                📈 Feature Importance Comparison
+                            </a>
+                            <div class="viz-description">Feature Importance Analysis</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/partial_dependence_ice.html" class="viz-link" target="_blank">
+                                📈 Partial Dependence Ice
+                            </a>
+                            <div class="viz-description">Partial Dependence & ICE Plots</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/shap_summary_plot.html" class="viz-link" target="_blank">
+                                📈 Shap Summary Plot
+                            </a>
+                            <div class="viz-description">SHAP Values Summary</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/shap_dependence_plots.html" class="viz-link" target="_blank">
+                                📈 Shap Dependence Plots
+                            </a>
+                            <div class="viz-description">SHAP Dependence Analysis</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/model_performance_radar.html" class="viz-link" target="_blank">
+                                📈 Model Performance Radar
+                            </a>
+                            <div class="viz-description">Model Performance Comparison</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/prediction_intervals.html" class="viz-link" target="_blank">
+                                📈 Prediction Intervals
+                            </a>
+                            <div class="viz-description">Prediction Intervals & Uncertainty</div>
+                        </div>
+            
+                        <div class="viz-card">
+                            <a href="explainability_charts/federated_client_contributions.html" class="viz-link" target="_blank">
+                                📈 Federated Client Contributions
+                            </a>
+                            <div class="viz-description">Federated Client Contribution Analysis</div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div>
+        
+            <div class="footer">
+                <p><strong>Generated:</strong> 2025-09-27 18:49:44</p>
+                <p><strong>Research Focus:</strong> Trustless Edge-Based Real-Time ML for EV Charging Optimization</p>
+                <p>📁 All visualizations are interactive HTML files powered by Plotly</p>
+            </div>
+        </div>
+    </body>
+    </html>
+    
