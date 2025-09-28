@@ -1,0 +1,30 @@
+{
+  "timestamp": "2025-09-27 18:46:47",
+  "total_charts": 10,
+  "chart_categories": {
+    "Exploratory Data Analysis": [
+      "eda_time_series_overview.html",
+      "usage_heatmaps.html",
+      "seasonal_decomposition.html",
+      "autocorrelation_analysis.html",
+      "correlation_analysis.html",
+      "session_distributions.html",
+      "geospatial_analysis.html"
+    ],
+    "Federated Learning Analytics": [
+      "federated_learning_analytics.html"
+    ],
+    "Forecasting Evaluation": [
+      "forecasting_evaluation.html"
+    ],
+    "Optimization Metrics": [
+      "optimization_metrics.html"
+    ]
+  },
+  "research_insights": {
+    "temporal_patterns": "Daily and weekly seasonality identified in charging patterns",
+    "federated_learning": "Global model convergence achieved with efficient communication",
+    "optimization_performance": "Multi-objective optimization shows best overall performance",
+    "forecasting_accuracy": "Transformer model achieves lowest prediction errors"
+  }
+}

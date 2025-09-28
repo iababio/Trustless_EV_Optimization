@@ -1,0 +1,35 @@
+{
+  "timestamp": "2025-09-27 18:48:48",
+  "total_charts": 7,
+  "explainability_categories": {
+    "Feature Importance": [
+      "feature_importance_comparison.html"
+    ],
+    "Partial Dependence": [
+      "partial_dependence_ice.html"
+    ],
+    "SHAP Analysis": [
+      "shap_summary_plot.html",
+      "shap_dependence_plots.html"
+    ],
+    "Model Performance": [
+      "model_performance_radar.html"
+    ],
+    "Uncertainty Quantification": [
+      "prediction_intervals.html"
+    ],
+    "Federated Explainability": [
+      "federated_client_contributions.html"
+    ]
+  },
+  "key_insights": {
+    "most_important_features": [
+      "battery_level",
+      "hour_of_day",
+      "electricity_price"
+    ],
+    "model_interpretability": "Random Forest shows highest interpretability while maintaining good performance",
+    "uncertainty_analysis": "95% prediction intervals provide reliable uncertainty estimates",
+    "federated_insights": "Client contributions show temporal patterns indicating varying data quality"
+  }
+}
