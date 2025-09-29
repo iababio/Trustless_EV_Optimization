@@ -22,6 +22,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.offline as pyo
+import plotly.io as pio
 from datetime import datetime, timedelta
 import json
 import warnings
@@ -35,6 +36,20 @@ import folium
 from folium import plugins
 import geopandas as gpd
 warnings.filterwarnings('ignore')
+
+# Configure high-resolution PDF output
+pio.kaleido.scope.default_width = 1920
+pio.kaleido.scope.default_height = 1080
+pio.kaleido.scope.default_format = "pdf"
+pio.kaleido.scope.default_scale = 2  # High DPI for crisp output
+
+# Configure matplotlib for PDF output
+plt.rcParams['pdf.fonttype'] = 42  # Embed fonts
+plt.rcParams['ps.fonttype'] = 42
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['savefig.pad_inches'] = 0.1
 
 # Set plotting styles
 plt.style.use('seaborn-v0_8')
@@ -230,14 +245,14 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='EV Charging Time Series Analysis - Multi-Panel Overview',
+            title=dict(text='EV Charging Time Series Analysis - Multi-Panel Overview', font=dict(size=28)),
             height=800,
             showlegend=False,
-            font=dict(size=10)
+            font=dict(size=14)
         )
         
-        chart_path = os.path.join(self.charts_dir, "eda_time_series_overview.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "eda_time_series_overview.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -290,9 +305,9 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='EV Charging Usage Patterns: Hour × Weekday Heatmaps',
+            title=dict(text='EV Charging Usage Patterns: Hour × Weekday Heatmaps', font=dict(size=24)),
             height=400,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
         fig.update_xaxes(title_text="Hour of Day", row=1, col=1)
@@ -300,8 +315,8 @@ class EVResearchAnalytics:
         fig.update_yaxes(title_text="Day of Week", row=1, col=1)
         fig.update_yaxes(title_text="Day of Week", row=1, col=2)
         
-        chart_path = os.path.join(self.charts_dir, "usage_heatmaps.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "usage_heatmaps.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -357,14 +372,14 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='STL Seasonal Decomposition of EV Charging Load',
+            title=dict(text='STL Seasonal Decomposition of EV Charging Load', font=dict(size=26)),
             height=800,
             showlegend=False,
-            font=dict(size=11)
+            font=dict(size=14)
         )
         
-        chart_path = os.path.join(self.charts_dir, "seasonal_decomposition.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "seasonal_decomposition.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -436,9 +451,9 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='Autocorrelation Analysis for EV Charging Load (7-day lag)',
+            title=dict(text='Autocorrelation Analysis for EV Charging Load (7-day lag)', font=dict(size=24)),
             height=400,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
         fig.update_xaxes(title_text="Lag (hours)", row=1, col=1)
@@ -446,8 +461,8 @@ class EVResearchAnalytics:
         fig.update_yaxes(title_text="Correlation", row=1, col=1)
         fig.update_yaxes(title_text="Partial Correlation", row=1, col=2)
         
-        chart_path = os.path.join(self.charts_dir, "autocorrelation_analysis.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "autocorrelation_analysis.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -532,10 +547,10 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='Federated Learning Analytics Dashboard',
+            title=dict(text='Federated Learning Analytics Dashboard', font=dict(size=28)),
             height=900,
             showlegend=False,
-            font=dict(size=10)
+            font=dict(size=14)
         )
         
         # Update y-axis labels
@@ -547,8 +562,8 @@ class EVResearchAnalytics:
         fig.update_yaxes(title_text="Contribution", row=3, col=1)
         fig.update_yaxes(title_text="Loss Reduction", row=3, col=2)
         
-        chart_path = os.path.join(self.charts_dir, "federated_learning_analytics.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "federated_learning_analytics.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -618,14 +633,14 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='Forecasting Model Evaluation: Multiple Metrics Comparison',
+            title=dict(text='Forecasting Model Evaluation: Multiple Metrics Comparison', font=dict(size=24)),
             height=600,
             showlegend=False,
-            font=dict(size=11)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "forecasting_evaluation.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "forecasting_evaluation.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -695,14 +710,14 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='Optimization & Operational Metrics Comparison',
+            title=dict(text='Optimization & Operational Metrics Comparison', font=dict(size=24)),
             height=600,
             showlegend=False,
-            font=dict(size=10)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "optimization_metrics.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "optimization_metrics.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -754,13 +769,13 @@ class EVResearchAnalytics:
         ))
         
         fig.update_layout(
-            title='Feature Correlation Matrix for EV Charging Data',
+            title=dict(text='Feature Correlation Matrix for EV Charging Data', font=dict(size=24)),
             height=600,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "correlation_analysis.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "correlation_analysis.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -804,18 +819,18 @@ class EVResearchAnalytics:
         ))
         
         fig.update_layout(
-            title='Geospatial Distribution of EV Charging Stations<br><sub>Size = Average Energy, Color = Variability</sub>',
+            title=dict(text='Geospatial Distribution of EV Charging Stations<br><sub>Size = Average Energy, Color = Variability</sub>', font=dict(size=24)),
             mapbox=dict(
                 style="open-street-map",
                 center=dict(lat=37.7749, lon=-122.4194),
                 zoom=10
             ),
             height=600,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "geospatial_analysis.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "geospatial_analysis.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -878,10 +893,10 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title='EV Charging Session-Level Distributions & Behavior Analysis',
+            title=dict(text='EV Charging Session-Level Distributions & Behavior Analysis', font=dict(size=24)),
             height=600,
             showlegend=False,
-            font=dict(size=11)
+            font=dict(size=16)
         )
         
         fig.update_xaxes(title_text="Energy (kWh)", row=1, col=1)
@@ -890,8 +905,8 @@ class EVResearchAnalytics:
         fig.update_xaxes(title_text="Duration (hours)", row=2, col=2)
         fig.update_yaxes(title_text="Energy (kWh)", row=2, col=2)
         
-        chart_path = os.path.join(self.charts_dir, "session_distributions.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "session_distributions.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -905,22 +920,22 @@ class EVResearchAnalytics:
             "total_charts": len(charts_generated),
             "chart_categories": {
                 "Exploratory Data Analysis": [
-                    "eda_time_series_overview.html",
-                    "usage_heatmaps.html", 
-                    "seasonal_decomposition.html",
-                    "autocorrelation_analysis.html",
-                    "correlation_analysis.html",
-                    "session_distributions.html",
-                    "geospatial_analysis.html"
+                    "eda_time_series_overview.pdf",
+                    "usage_heatmaps.pdf", 
+                    "seasonal_decomposition.pdf",
+                    "autocorrelation_analysis.pdf",
+                    "correlation_analysis.pdf",
+                    "session_distributions.pdf",
+                    "geospatial_analysis.pdf"
                 ],
                 "Federated Learning Analytics": [
-                    "federated_learning_analytics.html"
+                    "federated_learning_analytics.pdf"
                 ],
                 "Forecasting Evaluation": [
-                    "forecasting_evaluation.html"
+                    "forecasting_evaluation.pdf"
                 ],
                 "Optimization Metrics": [
-                    "optimization_metrics.html"
+                    "optimization_metrics.pdf"
                 ]
             },
             "research_insights": {

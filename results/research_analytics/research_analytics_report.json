@@ -1,24 +1,24 @@
 {
-  "timestamp": "2025-09-27 18:46:47",
+  "timestamp": "2025-09-29 00:39:33",
   "total_charts": 10,
   "chart_categories": {
     "Exploratory Data Analysis": [
-      "eda_time_series_overview.html",
-      "usage_heatmaps.html",
-      "seasonal_decomposition.html",
-      "autocorrelation_analysis.html",
-      "correlation_analysis.html",
-      "session_distributions.html",
-      "geospatial_analysis.html"
+      "eda_time_series_overview.pdf",
+      "usage_heatmaps.pdf",
+      "seasonal_decomposition.pdf",
+      "autocorrelation_analysis.pdf",
+      "correlation_analysis.pdf",
+      "session_distributions.pdf",
+      "geospatial_analysis.pdf"
     ],
     "Federated Learning Analytics": [
-      "federated_learning_analytics.html"
+      "federated_learning_analytics.pdf"
     ],
     "Forecasting Evaluation": [
-      "forecasting_evaluation.html"
+      "forecasting_evaluation.pdf"
     ],
     "Optimization Metrics": [
-      "optimization_metrics.html"
+      "optimization_metrics.pdf"
     ]
   },
   "research_insights": {

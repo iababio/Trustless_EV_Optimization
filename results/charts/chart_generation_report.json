@@ -1,13 +1,13 @@
 {
-  "timestamp": "2025-09-27 18:35:07",
+  "timestamp": "2025-09-29 00:38:22",
   "charts_generated": 6,
   "chart_files": [
-    "federated_learning_analysis.html",
-    "baseline_models_comparison.html",
-    "optimization_algorithms_comparison.html",
-    "security_evaluation_radar.html",
-    "blockchain_performance_comparison.html",
-    "comprehensive_dashboard.html"
+    "federated_learning_analysis.pdf",
+    "baseline_models_comparison.pdf",
+    "optimization_algorithms_comparison.pdf",
+    "security_evaluation_radar.pdf",
+    "blockchain_performance_comparison.pdf",
+    "comprehensive_dashboard.pdf"
   ],
   "description": "Comprehensive visualization charts for EV charging optimization research",
   "categories": [
