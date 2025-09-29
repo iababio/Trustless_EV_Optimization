@@ -1,25 +1,25 @@
 {
-  "timestamp": "2025-09-27 18:48:48",
+  "timestamp": "2025-09-29 00:38:59",
   "total_charts": 7,
   "explainability_categories": {
     "Feature Importance": [
-      "feature_importance_comparison.html"
+      "feature_importance_comparison.pdf"
     ],
     "Partial Dependence": [
-      "partial_dependence_ice.html"
+      "partial_dependence_ice.pdf"
     ],
     "SHAP Analysis": [
-      "shap_summary_plot.html",
-      "shap_dependence_plots.html"
+      "shap_summary_plot.pdf",
+      "shap_dependence_plots.pdf"
     ],
     "Model Performance": [
-      "model_performance_radar.html"
+      "model_performance_radar.pdf"
     ],
     "Uncertainty Quantification": [
-      "prediction_intervals.html"
+      "prediction_intervals.pdf"
     ],
     "Federated Explainability": [
-      "federated_client_contributions.html"
+      "federated_client_contributions.pdf"
     ]
   },
   "key_insights": {

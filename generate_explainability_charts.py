@@ -15,12 +15,27 @@ import seaborn as sns
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import plotly.io as pio
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.inspection import partial_dependence, PartialDependenceDisplay
 import warnings
 warnings.filterwarnings('ignore')
+
+# Configure high-resolution PDF output
+pio.kaleido.scope.default_width = 1920
+pio.kaleido.scope.default_height = 1080
+pio.kaleido.scope.default_format = "pdf"
+pio.kaleido.scope.default_scale = 2  # High DPI for crisp output
+
+# Configure matplotlib for PDF output
+plt.rcParams['pdf.fonttype'] = 42  # Embed fonts
+plt.rcParams['ps.fonttype'] = 42
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['savefig.pad_inches'] = 0.1
 
 class ExplainabilityVisualizer:
     """Generate explainability and feature attribution visualizations"""
@@ -133,16 +148,16 @@ class ExplainabilityVisualizer:
         )
         
         fig.update_layout(
-            title='Feature Importance Comparison: EV Charging Demand Prediction',
+            title=dict(text='Feature Importance Comparison: EV Charging Demand Prediction', font=dict(size=24)),
             height=500,
             showlegend=False,
-            font=dict(size=11)
+            font=dict(size=16)
         )
         
         fig.update_xaxes(tickangle=45)
         
-        chart_path = os.path.join(self.charts_dir, "feature_importance_comparison.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "feature_importance_comparison.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -206,13 +221,13 @@ class ExplainabilityVisualizer:
                 )
         
         fig.update_layout(
-            title='Partial Dependence & Individual Conditional Expectation (ICE) Plots',
+            title=dict(text='Partial Dependence & Individual Conditional Expectation (ICE) Plots', font=dict(size=24)),
             height=600,
-            font=dict(size=10)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "partial_dependence_ice.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "partial_dependence_ice.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -248,17 +263,17 @@ class ExplainabilityVisualizer:
             ))
         
         fig.update_layout(
-            title='SHAP Values Summary Plot - Feature Attribution for EV Charging Demand',
-            xaxis_title='Features',
-            yaxis_title='SHAP Value (impact on prediction)',
+            title=dict(text='SHAP Values Summary Plot - Feature Attribution for EV Charging Demand', font=dict(size=24)),
+            xaxis_title=dict(text='Features', font=dict(size=18)),
+            yaxis_title=dict(text='SHAP Value (impact on prediction)', font=dict(size=18)),
             height=500,
-            font=dict(size=11)
+            font=dict(size=16)
         )
         
         fig.update_xaxes(tickangle=45)
         
-        chart_path = os.path.join(self.charts_dir, "shap_summary_plot.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "shap_summary_plot.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -317,14 +332,14 @@ class ExplainabilityVisualizer:
             )
         
         fig.update_layout(
-            title='SHAP Dependence Plots - Feature Impact vs Feature Value',
+            title=dict(text='SHAP Dependence Plots - Feature Impact vs Feature Value', font=dict(size=24)),
             height=600,
             showlegend=False,
-            font=dict(size=10)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "shap_dependence_plots.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "shap_dependence_plots.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -372,15 +387,16 @@ class ExplainabilityVisualizer:
             polar=dict(
                 radialaxis=dict(
                     visible=True,
-                    range=[0, 1]
+                    range=[0, 1],
+                    tickfont=dict(size=14)
                 )),
-            title="Model Performance Comparison - Multi-Dimensional Analysis",
+            title=dict(text="Model Performance Comparison - Multi-Dimensional Analysis", font=dict(size=24)),
             height=600,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "model_performance_radar.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "model_performance_radar.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -460,15 +476,15 @@ class ExplainabilityVisualizer:
         ))
         
         fig.update_layout(
-            title='EV Charging Demand Forecasting with Prediction Intervals',
-            xaxis_title='Date',
-            yaxis_title='Charging Demand (kWh)',
+            title=dict(text='EV Charging Demand Forecasting with Prediction Intervals', font=dict(size=24)),
+            xaxis_title=dict(text='Date', font=dict(size=18)),
+            yaxis_title=dict(text='Charging Demand (kWh)', font=dict(size=18)),
             height=500,
-            font=dict(size=12)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "prediction_intervals.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "prediction_intervals.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -508,15 +524,15 @@ class ExplainabilityVisualizer:
         ))
         
         fig.update_layout(
-            title='Federated Learning Client Contributions Over Training Rounds',
-            xaxis_title='Training Round',
-            yaxis_title='Client ID',
+            title=dict(text='Federated Learning Client Contributions Over Training Rounds', font=dict(size=24)),
+            xaxis_title=dict(text='Training Round', font=dict(size=18)),
+            yaxis_title=dict(text='Client ID', font=dict(size=18)),
             height=600,
-            font=dict(size=11)
+            font=dict(size=16)
         )
         
-        chart_path = os.path.join(self.charts_dir, "federated_client_contributions.html")
-        fig.write_html(chart_path)
+        chart_path = os.path.join(self.charts_dir, "federated_client_contributions.pdf")
+        fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
         return chart_path
     
@@ -530,12 +546,12 @@ class ExplainabilityVisualizer:
             "timestamp": timestamp,
             "total_charts": len(charts_generated),
             "explainability_categories": {
-                "Feature Importance": ["feature_importance_comparison.html"],
-                "Partial Dependence": ["partial_dependence_ice.html"],
-                "SHAP Analysis": ["shap_summary_plot.html", "shap_dependence_plots.html"],
-                "Model Performance": ["model_performance_radar.html"],
-                "Uncertainty Quantification": ["prediction_intervals.html"],
-                "Federated Explainability": ["federated_client_contributions.html"]
+                "Feature Importance": ["feature_importance_comparison.pdf"],
+                "Partial Dependence": ["partial_dependence_ice.pdf"],
+                "SHAP Analysis": ["shap_summary_plot.pdf", "shap_dependence_plots.pdf"],
+                "Model Performance": ["model_performance_radar.pdf"],
+                "Uncertainty Quantification": ["prediction_intervals.pdf"],
+                "Federated Explainability": ["federated_client_contributions.pdf"]
             },
             "key_insights": {
                 "most_important_features": ["battery_level", "hour_of_day", "electricity_price"],

@@ -13,10 +13,25 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.offline as pyo
+import plotly.io as pio
 from datetime import datetime
 import json
 import warnings
 warnings.filterwarnings('ignore')
+
+# Configure high-resolution PDF output
+pio.kaleido.scope.default_width = 1920
+pio.kaleido.scope.default_height = 1080
+pio.kaleido.scope.default_format = "pdf"
+pio.kaleido.scope.default_scale = 2  # High DPI for crisp output
+
+# Configure matplotlib for PDF output
+plt.rcParams['pdf.fonttype'] = 42  # Embed fonts
+plt.rcParams['ps.fonttype'] = 42
+plt.rcParams['figure.dpi'] = 300
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['savefig.bbox'] = 'tight'
+plt.rcParams['savefig.pad_inches'] = 0.1
 
 # Add project path
 sys.path.append('/Users/ababio/Lab/Research/EV_Optimization')
@@ -138,16 +153,16 @@ def create_federated_learning_charts(data, save_dir):
     )
     
     fig.update_layout(
-        title='Federated Learning Performance Analysis',
+        title=dict(text='Federated Learning Performance Analysis', font=dict(size=24)),
         height=600,
         showlegend=False,
-        font=dict(size=12),
+        font=dict(size=16),
         plot_bgcolor='white'
     )
     
-    # Save chart
-    chart_path = os.path.join(save_dir, "federated_learning_analysis.html")
-    fig.write_html(chart_path)
+    # Save chart as high-resolution PDF
+    chart_path = os.path.join(save_dir, "federated_learning_analysis.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
@@ -193,14 +208,14 @@ def create_baseline_model_charts(data, save_dir):
     )
     
     fig.update_layout(
-        title='Baseline Model Performance Comparison',
+        title=dict(text='Baseline Model Performance Comparison', font=dict(size=24)),
         height=500,
-        font=dict(size=12),
+        font=dict(size=16),
         plot_bgcolor='white'
     )
     
-    chart_path = os.path.join(save_dir, "baseline_models_comparison.html")
-    fig.write_html(chart_path)
+    chart_path = os.path.join(save_dir, "baseline_models_comparison.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
@@ -251,15 +266,15 @@ def create_optimization_charts(data, save_dir):
     )
     
     fig.update_layout(
-        title='Optimization Algorithm Performance Comparison',
+        title=dict(text='Optimization Algorithm Performance Comparison', font=dict(size=24)),
         height=600,
         showlegend=False,
-        font=dict(size=12),
+        font=dict(size=16),
         plot_bgcolor='white'
     )
     
-    chart_path = os.path.join(save_dir, "optimization_algorithms_comparison.html")
-    fig.write_html(chart_path)
+    chart_path = os.path.join(save_dir, "optimization_algorithms_comparison.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
@@ -289,15 +304,16 @@ def create_security_charts(data, save_dir):
         polar=dict(
             radialaxis=dict(
                 visible=True,
-                range=[0, 1]
+                range=[0, 1],
+                tickfont=dict(size=14)
             )),
-        title="Security Evaluation: Detection Rates & Robustness",
+        title=dict(text="Security Evaluation: Detection Rates & Robustness", font=dict(size=24)),
         height=500,
-        font=dict(size=12)
+        font=dict(size=16)
     )
     
-    chart_path = os.path.join(save_dir, "security_evaluation_radar.html")
-    fig.write_html(chart_path)
+    chart_path = os.path.join(save_dir, "security_evaluation_radar.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
@@ -326,17 +342,17 @@ def create_blockchain_charts(data, save_dir):
     ))
     
     fig.update_layout(
-        title='Blockchain Performance: Optimized vs Baseline',
-        xaxis_title='Metrics',
-        yaxis_title='Values',
+        title=dict(text='Blockchain Performance: Optimized vs Baseline', font=dict(size=24)),
+        xaxis_title=dict(text='Metrics', font=dict(size=18)),
+        yaxis_title=dict(text='Values', font=dict(size=18)),
         height=500,
-        font=dict(size=12),
+        font=dict(size=16),
         plot_bgcolor='white',
         barmode='group'
     )
     
-    chart_path = os.path.join(save_dir, "blockchain_performance_comparison.html")
-    fig.write_html(chart_path)
+    chart_path = os.path.join(save_dir, "blockchain_performance_comparison.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
@@ -432,15 +448,15 @@ def create_comprehensive_dashboard(all_data, save_dir):
     )
     
     fig.update_layout(
-        title='EV Charging Optimization: Comprehensive Research Dashboard',
+        title=dict(text='EV Charging Optimization: Comprehensive Research Dashboard', font=dict(size=28)),
         height=900,
         showlegend=False,
-        font=dict(size=10),
+        font=dict(size=14),
         plot_bgcolor='white'
     )
     
-    chart_path = os.path.join(save_dir, "comprehensive_dashboard.html")
-    fig.write_html(chart_path)
+    chart_path = os.path.join(save_dir, "comprehensive_dashboard.pdf")
+    fig.write_image(chart_path, width=1920, height=1080, scale=2)
     
     return chart_path
 
