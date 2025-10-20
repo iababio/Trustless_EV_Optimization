@@ -135,26 +135,34 @@ class ExplainabilityVisualizer:
         fig.add_trace(
             go.Bar(x=feature_names, y=rf_importance,
                   name='RF Importance', marker_color='lightblue',
-                  text=[f'{x:.3f}' for x in rf_importance], textposition='auto'),
+                  text=[f'{x:.3f}' for x in rf_importance], textposition='auto',
+                  textfont=dict(size=28)),
             row=1, col=1
         )
-        
+
         # Gradient Boosting
         fig.add_trace(
             go.Bar(x=feature_names, y=gb_importance,
                   name='GB Importance', marker_color='lightcoral',
-                  text=[f'{x:.3f}' for x in gb_importance], textposition='auto'),
+                  text=[f'{x:.3f}' for x in gb_importance], textposition='auto',
+                  textfont=dict(size=28)),
             row=1, col=2
         )
-        
+
         fig.update_layout(
-            title=dict(text='Feature Importance Comparison: EV Charging Demand Prediction', font=dict(size=24)),
-            height=500,
+            title=dict(text='Feature Importance Comparison: EV Charging Demand Prediction', font=dict(size=48)),
+            height=700,
             showlegend=False,
-            font=dict(size=16)
+            font=dict(size=32),
+            margin=dict(t=150, b=120, l=100, r=100)
         )
-        
-        fig.update_xaxes(tickangle=45)
+
+        # Update subplot titles font size
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=36)
+
+        fig.update_xaxes(tickangle=45, tickfont=dict(size=26), title_font=dict(size=32))
+        fig.update_yaxes(tickfont=dict(size=28), title_font=dict(size=32))
         
         chart_path = os.path.join(self.charts_dir, "feature_importance_comparison.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -175,7 +183,9 @@ class ExplainabilityVisualizer:
         
         fig = make_subplots(
             rows=2, cols=2,
-            subplot_titles=[f'Partial Dependence: {feat}' for feat in key_features]
+            subplot_titles=[f'Partial Dependence: {feat}' for feat in key_features],
+            vertical_spacing=0.15,
+            horizontal_spacing=0.12
         )
         
         row_col_pairs = [(1, 1), (1, 2), (2, 1), (2, 2)]
@@ -198,7 +208,7 @@ class ExplainabilityVisualizer:
             fig.add_trace(
                 go.Scatter(x=feature_values, y=pd_values,
                           mode='lines', name=f'PD: {feature}',
-                          line=dict(color='blue', width=3)),
+                          line=dict(color='blue', width=4)),
                 row=row, col=col
             )
             
@@ -221,10 +231,19 @@ class ExplainabilityVisualizer:
                 )
         
         fig.update_layout(
-            title=dict(text='Partial Dependence & Individual Conditional Expectation (ICE) Plots', font=dict(size=24)),
-            height=600,
-            font=dict(size=16)
+            title=dict(text='Partial Dependence & Individual Conditional Expectation (ICE) Plots', font=dict(size=48)),
+            height=800,
+            font=dict(size=32),
+            margin=dict(t=150, b=100, l=100, r=100)
         )
+
+        # Update subplot titles font size
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+
+        # Update axis labels with larger fonts
+        fig.update_xaxes(tickfont=dict(size=26), title_font=dict(size=32))
+        fig.update_yaxes(tickfont=dict(size=26), title_font=dict(size=32))
         
         chart_path = os.path.join(self.charts_dir, "partial_dependence_ice.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -263,11 +282,11 @@ class ExplainabilityVisualizer:
             ))
         
         fig.update_layout(
-            title=dict(text='SHAP Values Summary Plot - Feature Attribution for EV Charging Demand', font=dict(size=24)),
-            xaxis_title=dict(text='Features', font=dict(size=18)),
-            yaxis_title=dict(text='SHAP Value (impact on prediction)', font=dict(size=18)),
+            title=dict(text='SHAP Values Summary Plot - Feature Attribution for EV Charging Demand', font=dict(size=48)),
+            xaxis_title=dict(text='Features', font=dict(size=36)),
+            yaxis_title=dict(text='SHAP Value (impact on prediction)', font=dict(size=36)),
             height=500,
-            font=dict(size=16)
+            font=dict(size=32)
         )
         
         fig.update_xaxes(tickangle=45)
@@ -388,11 +407,11 @@ class ExplainabilityVisualizer:
                 radialaxis=dict(
                     visible=True,
                     range=[0, 1],
-                    tickfont=dict(size=14)
+                    tickfont=dict(size=28)
                 )),
-            title=dict(text="Model Performance Comparison - Multi-Dimensional Analysis", font=dict(size=24)),
+            title=dict(text="Model Performance Comparison - Multi-Dimensional Analysis", font=dict(size=48)),
             height=600,
-            font=dict(size=16)
+            font=dict(size=32)
         )
         
         chart_path = os.path.join(self.charts_dir, "model_performance_radar.pdf")
@@ -476,11 +495,11 @@ class ExplainabilityVisualizer:
         ))
         
         fig.update_layout(
-            title=dict(text='EV Charging Demand Forecasting with Prediction Intervals', font=dict(size=24)),
-            xaxis_title=dict(text='Date', font=dict(size=18)),
-            yaxis_title=dict(text='Charging Demand (kWh)', font=dict(size=18)),
+            title=dict(text='EV Charging Demand Forecasting with Prediction Intervals', font=dict(size=48)),
+            xaxis_title=dict(text='Date', font=dict(size=36)),
+            yaxis_title=dict(text='Charging Demand (kWh)', font=dict(size=36)),
             height=500,
-            font=dict(size=16)
+            font=dict(size=32)
         )
         
         chart_path = os.path.join(self.charts_dir, "prediction_intervals.pdf")

@@ -172,10 +172,10 @@ class EVResearchAnalytics:
             rows=3, cols=2,
             subplot_titles=[
                 'Total Sessions Over Time', 'Total Energy Consumption Over Time',
-                'Sessions with Rolling Means', 'Energy with Rolling Means', 
+                'Sessions with Rolling Means', 'Energy with Rolling Means',
                 'Weekly Aggregation - Sessions', 'Weekly Aggregation - Energy'
             ],
-            vertical_spacing=0.08
+            vertical_spacing=0.20
         )
         
         # Raw time series
@@ -245,11 +245,20 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title=dict(text='EV Charging Time Series Analysis - Multi-Panel Overview', font=dict(size=28)),
-            height=800,
+            title=dict(text='EV Charging Time Series Analysis - Multi-Panel Overview', font=dict(size=48)),
+            height=1400,
             showlegend=False,
-            font=dict(size=14)
+            font=dict(size=28),
+            margin=dict(t=150, b=50, l=80, r=80)
         )
+
+        # Update subplot titles font size
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+
+        # Update axis labels font size
+        fig.update_xaxes(title_font=dict(size=28), tickfont=dict(size=24))
+        fig.update_yaxes(title_font=dict(size=28), tickfont=dict(size=24))
         
         chart_path = os.path.join(self.charts_dir, "eda_time_series_overview.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -273,11 +282,13 @@ class EVResearchAnalytics:
         # Create subplots for sessions and energy
         fig = make_subplots(
             rows=1, cols=2,
-            subplot_titles=['Average Sessions per Hour-Weekday', 'Average Energy (kWh) per Hour-Weekday']
+            subplot_titles=['Average Sessions per Hour-Weekday', 'Average Energy (kWh) per Hour-Weekday'],
+            horizontal_spacing=0.35,
+            vertical_spacing=0.15
         )
-        
+
         weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-        
+
         # Sessions heatmap
         fig.add_trace(
             go.Heatmap(
@@ -285,12 +296,12 @@ class EVResearchAnalytics:
                 x=list(range(24)),
                 y=weekdays,
                 colorscale='Blues',
-                colorbar=dict(x=0.45, title="Sessions"),
+                colorbar=dict(x=0.38, title=dict(text="Sessions", font=dict(size=28)), tickfont=dict(size=24)),
                 hoverongaps=False
             ),
             row=1, col=1
         )
-        
+
         # Energy heatmap
         fig.add_trace(
             go.Heatmap(
@@ -298,22 +309,28 @@ class EVResearchAnalytics:
                 x=list(range(24)),
                 y=weekdays,
                 colorscale='Reds',
-                colorbar=dict(x=1.02, title="Energy (kWh)"),
+                colorbar=dict(x=1.02, title=dict(text="Energy (kWh)", font=dict(size=28)), tickfont=dict(size=24)),
                 hoverongaps=False
             ),
             row=1, col=2
         )
-        
+
         fig.update_layout(
-            title=dict(text='EV Charging Usage Patterns: Hour × Weekday Heatmaps', font=dict(size=24)),
-            height=400,
-            font=dict(size=16)
+            title=dict(text='EV Charging Usage Patterns: Hour × Weekday Heatmaps', font=dict(size=48)),
+            height=650,
+            font=dict(size=32),
+            margin=dict(t=150, b=100, l=120, r=120)
         )
-        
-        fig.update_xaxes(title_text="Hour of Day", row=1, col=1)
-        fig.update_xaxes(title_text="Hour of Day", row=1, col=2)
-        fig.update_yaxes(title_text="Day of Week", row=1, col=1)
-        fig.update_yaxes(title_text="Day of Week", row=1, col=2)
+
+        # Update subplot titles font size and position
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+            annotation['y'] = annotation['y'] + 0.03  # Move titles up slightly to add space below them
+
+        fig.update_xaxes(title_text="Hour of Day", title_font=dict(size=32), tickfont=dict(size=28), row=1, col=1)
+        fig.update_xaxes(title_text="Hour of Day", title_font=dict(size=32), tickfont=dict(size=28), row=1, col=2)
+        fig.update_yaxes(title_text="Day of Week", title_font=dict(size=32), tickfont=dict(size=28), row=1, col=1)
+        fig.update_yaxes(title_text="Day of Week", title_font=dict(size=32), tickfont=dict(size=28), row=1, col=2)
         
         chart_path = os.path.join(self.charts_dir, "usage_heatmaps.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -336,9 +353,9 @@ class EVResearchAnalytics:
         # Create decomposition plot
         fig = make_subplots(
             rows=4, cols=1,
-            subplot_titles=['Original Time Series', 'Trend Component', 
+            subplot_titles=['Original Time Series', 'Trend Component',
                            'Seasonal Component', 'Residual Component'],
-            vertical_spacing=0.08
+            vertical_spacing=0.15
         )
         
         timestamps = hourly_agg.index
@@ -373,9 +390,10 @@ class EVResearchAnalytics:
         
         fig.update_layout(
             title=dict(text='STL Seasonal Decomposition of EV Charging Load', font=dict(size=26)),
-            height=800,
+            height=1300,
             showlegend=False,
-            font=dict(size=14)
+            font=dict(size=14),
+            margin=dict(t=100, b=50, l=80, r=80)
         )
         
         chart_path = os.path.join(self.charts_dir, "seasonal_decomposition.pdf")
@@ -399,7 +417,9 @@ class EVResearchAnalytics:
         # Create ACF/PACF plots
         fig = make_subplots(
             rows=1, cols=2,
-            subplot_titles=['Autocorrelation Function (ACF)', 'Partial Autocorrelation Function (PACF)']
+            subplot_titles=['Autocorrelation Function (ACF)', 'Partial Autocorrelation Function (PACF)'],
+            horizontal_spacing=0.20,
+            vertical_spacing=0.25
         )
         
         lag_range = list(range(lags + 1))
@@ -451,15 +471,21 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title=dict(text='Autocorrelation Analysis for EV Charging Load (7-day lag)', font=dict(size=24)),
-            height=400,
-            font=dict(size=16)
+            title=dict(text='Autocorrelation Analysis for EV Charging Load (7-day lag)', font=dict(size=48)),
+            height=900,
+            font=dict(size=64),
+            margin=dict(t=220, b=150, l=150, r=150)
         )
-        
-        fig.update_xaxes(title_text="Lag (hours)", row=1, col=1)
-        fig.update_xaxes(title_text="Lag (hours)", row=1, col=2)
-        fig.update_yaxes(title_text="Correlation", row=1, col=1)
-        fig.update_yaxes(title_text="Partial Correlation", row=1, col=2)
+
+        # Update subplot titles font size and position
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+            annotation['y'] = annotation['y'] + 0.08  # Move titles up to add space between titles and charts
+
+        fig.update_xaxes(title_text="Lag (hours)", title_font=dict(size=64), tickfont=dict(size=56), row=1, col=1)
+        fig.update_xaxes(title_text="Lag (hours)", title_font=dict(size=64), tickfont=dict(size=56), row=1, col=2)
+        fig.update_yaxes(title_text="Correlation", title_font=dict(size=64), tickfont=dict(size=56), row=1, col=1)
+        fig.update_yaxes(title_text="Partial Correlation", title_font=dict(size=64), tickfont=dict(size=56), row=1, col=2)
         
         chart_path = os.path.join(self.charts_dir, "autocorrelation_analysis.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -483,7 +509,8 @@ class EVResearchAnalytics:
             ],
             specs=[[{"secondary_y": True}, {"secondary_y": False}],
                    [{"secondary_y": False}, {"secondary_y": False}],
-                   [{"secondary_y": False}, {"secondary_y": False}]]
+                   [{"secondary_y": False}, {"secondary_y": False}]],
+            vertical_spacing=0.20
         )
         
         rounds = fed_data['rounds']
@@ -547,20 +574,28 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title=dict(text='Federated Learning Analytics Dashboard', font=dict(size=28)),
-            height=900,
+            title=dict(text='Federated Learning Analytics', font=dict(size=48)),
+            height=1400,
             showlegend=False,
-            font=dict(size=14)
+            font=dict(size=28),
+            margin=dict(t=150, b=80, l=100, r=100)
         )
-        
-        # Update y-axis labels
-        fig.update_yaxes(title_text="Loss", row=1, col=1, secondary_y=False)
-        fig.update_yaxes(title_text="Accuracy", row=1, col=1, secondary_y=True)
-        fig.update_yaxes(title_text="Participation Rate", row=1, col=2)
-        fig.update_yaxes(title_text="Bytes", row=2, col=1)
-        fig.update_yaxes(title_text="Frequency", row=2, col=2)
-        fig.update_yaxes(title_text="Contribution", row=3, col=1)
-        fig.update_yaxes(title_text="Loss Reduction", row=3, col=2)
+
+        # Update subplot titles font size
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+
+        # Update y-axis labels with larger fonts
+        fig.update_yaxes(title_text="Loss", title_font=dict(size=32), tickfont=dict(size=26), row=1, col=1, secondary_y=False)
+        fig.update_yaxes(title_text="Accuracy", title_font=dict(size=32), tickfont=dict(size=26), row=1, col=1, secondary_y=True)
+        fig.update_yaxes(title_text="Participation Rate", title_font=dict(size=32), tickfont=dict(size=26), row=1, col=2)
+        fig.update_yaxes(title_text="Bytes", title_font=dict(size=32), tickfont=dict(size=26), row=2, col=1)
+        fig.update_yaxes(title_text="Frequency", title_font=dict(size=32), tickfont=dict(size=26), row=2, col=2)
+        fig.update_yaxes(title_text="Contribution", title_font=dict(size=32), tickfont=dict(size=26), row=3, col=1)
+        fig.update_yaxes(title_text="Loss Reduction", title_font=dict(size=32), tickfont=dict(size=26), row=3, col=2)
+
+        # Update x-axis labels with larger fonts
+        fig.update_xaxes(title_font=dict(size=32), tickfont=dict(size=26))
         
         chart_path = os.path.join(self.charts_dir, "federated_learning_analytics.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -577,9 +612,10 @@ class EVResearchAnalytics:
         # Forecasting metrics comparison
         fig = make_subplots(
             rows=2, cols=3,
-            subplot_titles=['Mean Absolute Error (MAE)', 'Root Mean Square Error (RMSE)', 
+            subplot_titles=['Mean Absolute Error (MAE)', 'Root Mean Square Error (RMSE)',
                            'Mean Absolute Percentage Error (MAPE)', 'CRPS Score',
-                           'Coverage at 80%', 'Coverage at 95%']
+                           'Coverage at 80%', 'Coverage at 95%'],
+            vertical_spacing=0.25
         )
         
         models = forecast_data['models']
@@ -634,11 +670,12 @@ class EVResearchAnalytics:
         
         fig.update_layout(
             title=dict(text='Forecasting Model Evaluation: Multiple Metrics Comparison', font=dict(size=24)),
-            height=600,
+            height=900,
             showlegend=False,
-            font=dict(size=16)
+            font=dict(size=16),
+            margin=dict(t=100, b=50, l=80, r=80)
         )
-        
+
         chart_path = os.path.join(self.charts_dir, "forecasting_evaluation.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
@@ -654,9 +691,10 @@ class EVResearchAnalytics:
         # Optimization metrics dashboard
         fig = make_subplots(
             rows=2, cols=3,
-            subplot_titles=['Peak Load Reduction (%)', 'Energy Cost Savings ($)', 
+            subplot_titles=['Peak Load Reduction (%)', 'Energy Cost Savings ($)',
                            'Load Variance Reduction', 'User Satisfaction Score',
-                           'Charging Completion Rate', 'Constraint Violations']
+                           'Charging Completion Rate', 'Constraint Violations'],
+            vertical_spacing=0.25
         )
         
         algorithms = opt_data['algorithms']
@@ -665,57 +703,72 @@ class EVResearchAnalytics:
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['peak_load_reduction'],
                   name='Peak Load Reduction', marker_color='lightblue',
-                  text=[f'{x:.1f}%' for x in opt_data['peak_load_reduction']], textposition='auto'),
+                  text=[f'{x:.1f}%' for x in opt_data['peak_load_reduction']], textposition='auto',
+                  textfont=dict(size=28)),
             row=1, col=1
         )
-        
+
         # Energy cost savings
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['energy_cost_savings'],
                   name='Cost Savings', marker_color='lightgreen',
-                  text=[f'${x}' for x in opt_data['energy_cost_savings']], textposition='auto'),
+                  text=[f'${x}' for x in opt_data['energy_cost_savings']], textposition='auto',
+                  textfont=dict(size=28)),
             row=1, col=2
         )
-        
+
         # Load variance reduction
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['load_variance_reduction'],
                   name='Variance Reduction', marker_color='lightcoral',
-                  text=[f'{x:.2f}' for x in opt_data['load_variance_reduction']], textposition='auto'),
+                  text=[f'{x:.2f}' for x in opt_data['load_variance_reduction']], textposition='auto',
+                  textfont=dict(size=28)),
             row=1, col=3
         )
-        
+
         # User satisfaction
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['user_satisfaction'],
                   name='User Satisfaction', marker_color='lightyellow',
-                  text=[f'{x:.2f}' for x in opt_data['user_satisfaction']], textposition='auto'),
+                  text=[f'{x:.2f}' for x in opt_data['user_satisfaction']], textposition='auto',
+                  textfont=dict(size=28)),
             row=2, col=1
         )
-        
+
         # Completion rate
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['completion_rate'],
                   name='Completion Rate', marker_color='lightpink',
-                  text=[f'{x:.2f}' for x in opt_data['completion_rate']], textposition='auto'),
+                  text=[f'{x:.2f}' for x in opt_data['completion_rate']], textposition='auto',
+                  textfont=dict(size=28)),
             row=2, col=2
         )
-        
+
         # Constraint violations
         fig.add_trace(
             go.Bar(x=algorithms, y=opt_data['constraint_violations'],
                   name='Violations', marker_color='lightsteelblue',
-                  text=opt_data['constraint_violations'], textposition='auto'),
+                  text=opt_data['constraint_violations'], textposition='auto',
+                  textfont=dict(size=28)),
             row=2, col=3
         )
-        
+
         fig.update_layout(
-            title=dict(text='Optimization & Operational Metrics Comparison', font=dict(size=24)),
-            height=600,
+            title=dict(text='Optimization & Operational Metrics Comparison', font=dict(size=48)),
+            height=900,
             showlegend=False,
-            font=dict(size=16)
+            font=dict(size=32),
+            margin=dict(t=150, b=100, l=100, r=100)
         )
-        
+
+        # Update subplot titles font size
+        for annotation in fig['layout']['annotations']:
+            annotation['font'] = dict(size=32)
+
+        # Update axis labels with larger fonts
+        fig.update_xaxes(tickfont=dict(size=26), title_font=dict(size=32))
+        fig.update_yaxes(tickfont=dict(size=28), title_font=dict(size=32))
+
         chart_path = os.path.join(self.charts_dir, "optimization_metrics.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
         
@@ -771,7 +824,8 @@ class EVResearchAnalytics:
         fig.update_layout(
             title=dict(text='Feature Correlation Matrix for EV Charging Data', font=dict(size=24)),
             height=600,
-            font=dict(size=16)
+            font=dict(size=16),
+            margin=dict(t=100, b=50, l=80, r=80)
         )
         
         chart_path = os.path.join(self.charts_dir, "correlation_analysis.pdf")
@@ -779,60 +833,61 @@ class EVResearchAnalytics:
         
         return chart_path
     
-    def create_geospatial_analysis(self):
-        """Create geospatial visualization of charging stations"""
-        
-        print("🗺️ Creating geospatial analysis...")
-        
-        df = self.data['charging']
-        
-        # Aggregate by station
-        station_stats = df.groupby(['station_id', 'latitude', 'longitude']).agg({
-            'total_energy_kwh': ['mean', 'std'],
-            'sessions_count': 'mean'
-        }).reset_index()
-        
-        station_stats.columns = ['station_id', 'latitude', 'longitude', 
-                               'avg_energy', 'energy_variability', 'avg_sessions']
-        
-        # Create scatter plot with size and color encoding
-        fig = go.Figure()
-        
-        fig.add_trace(go.Scattermapbox(
-            lat=station_stats['latitude'],
-            lon=station_stats['longitude'],
-            mode='markers',
-            marker=dict(
-                size=station_stats['avg_energy'] / 2,  # Scale for visibility
-                color=station_stats['energy_variability'],
-                colorscale='Viridis',
-                colorbar=dict(title="Energy Variability"),
-                sizemode='diameter',
-                sizemin=5
-            ),
-            text=[f"Station: {sid}<br>Avg Energy: {ae:.1f} kWh<br>Variability: {ev:.2f}" 
-                  for sid, ae, ev in zip(station_stats['station_id'], 
-                                       station_stats['avg_energy'],
-                                       station_stats['energy_variability'])],
-            hovertemplate='%{text}<extra></extra>',
-            name='Charging Stations'
-        ))
-        
-        fig.update_layout(
-            title=dict(text='Geospatial Distribution of EV Charging Stations<br><sub>Size = Average Energy, Color = Variability</sub>', font=dict(size=24)),
-            mapbox=dict(
-                style="open-street-map",
-                center=dict(lat=37.7749, lon=-122.4194),
-                zoom=10
-            ),
-            height=600,
-            font=dict(size=16)
-        )
-        
-        chart_path = os.path.join(self.charts_dir, "geospatial_analysis.pdf")
-        fig.write_image(chart_path, width=1920, height=1080, scale=2)
-        
-        return chart_path
+    # def create_geospatial_analysis(self):
+    #     """Create geospatial visualization of charging stations"""
+
+    #     print("🗺️ Creating geospatial analysis...")
+
+    #     df = self.data['charging']
+
+    #     # Aggregate by station
+    #     station_stats = df.groupby(['station_id', 'latitude', 'longitude']).agg({
+    #         'total_energy_kwh': ['mean', 'std'],
+    #         'sessions_count': 'mean'
+    #     }).reset_index()
+
+    #     station_stats.columns = ['station_id', 'latitude', 'longitude',
+    #                            'avg_energy', 'energy_variability', 'avg_sessions']
+
+    #     # Create scatter plot with size and color encoding (using regular scatter for PDF compatibility)
+    #     fig = go.Figure()
+
+    #     fig.add_trace(go.Scatter(
+    #         x=station_stats['longitude'],
+    #         y=station_stats['latitude'],
+    #         mode='markers',
+    #         marker=dict(
+    #             size=station_stats['avg_energy'] * 2,  # Scale for visibility
+    #             color=station_stats['energy_variability'],
+    #             colorscale='Viridis',
+    #             colorbar=dict(title="Energy Variability (kWh)"),
+    #             sizemode='diameter',
+    #             sizemin=8,
+    #             line=dict(width=1, color='white')
+    #         ),
+    #         text=[f"Station: {sid}<br>Avg Energy: {ae:.1f} kWh<br>Variability: {ev:.2f}<br>Avg Sessions: {ses:.1f}"
+    #               for sid, ae, ev, ses in zip(station_stats['station_id'],
+    #                                    station_stats['avg_energy'],
+    #                                    station_stats['energy_variability'],
+    #                                    station_stats['avg_sessions'])],
+    #         hovertemplate='%{text}<extra></extra>',
+    #         name='Charging Stations'
+    #     ))
+
+    #     fig.update_layout(
+    #         title=dict(text='Geospatial Distribution of EV Charging Stations<br><sub>Marker Size = Average Energy, Color = Variability</sub>', font=dict(size=24)),
+    #         xaxis=dict(title='Longitude', showgrid=True, gridcolor='lightgray'),
+    #         yaxis=dict(title='Latitude', showgrid=True, gridcolor='lightgray'),
+    #         plot_bgcolor='white',
+    #         height=600,
+    #         font=dict(size=16),
+    #         margin=dict(t=120, b=50, l=80, r=80)
+    #     )
+
+    #     chart_path = os.path.join(self.charts_dir, "geospatial_analysis.pdf")
+    #     fig.write_image(chart_path, width=1920, height=1080, scale=2)
+
+    #     return chart_path
     
     def create_session_distributions(self):
         """Create session-level distribution analysis"""
@@ -858,7 +913,8 @@ class EVResearchAnalytics:
         fig = make_subplots(
             rows=2, cols=2,
             subplot_titles=['Session Energy Distribution', 'Session Duration Distribution',
-                           'Inter-arrival Time Distribution', 'Energy vs Duration Scatter']
+                           'Inter-arrival Time Distribution', 'Energy vs Duration Scatter'],
+            vertical_spacing=0.25
         )
         
         # Energy distribution
@@ -893,17 +949,18 @@ class EVResearchAnalytics:
         )
         
         fig.update_layout(
-            title=dict(text='EV Charging Session-Level Distributions & Behavior Analysis', font=dict(size=24)),
-            height=600,
+            title=dict(text='EV Charging Session-Level Distributions & Behavior Analysis', font=dict(size=48)),
+            height=1000,
             showlegend=False,
-            font=dict(size=16)
+            font=dict(size=32),
+            margin=dict(t=150, b=50, l=80, r=80)
         )
-        
-        fig.update_xaxes(title_text="Energy (kWh)", row=1, col=1)
-        fig.update_xaxes(title_text="Duration (hours)", row=1, col=2)
-        fig.update_xaxes(title_text="Inter-arrival (hours)", row=2, col=1)
-        fig.update_xaxes(title_text="Duration (hours)", row=2, col=2)
-        fig.update_yaxes(title_text="Energy (kWh)", row=2, col=2)
+
+        fig.update_xaxes(title_text="Energy (kWh)", title_font=dict(size=32), row=1, col=1)
+        fig.update_xaxes(title_text="Duration (hours)", title_font=dict(size=32), row=1, col=2)
+        fig.update_xaxes(title_text="Inter-arrival (hours)", title_font=dict(size=32), row=2, col=1)
+        fig.update_xaxes(title_text="Duration (hours)", title_font=dict(size=32), row=2, col=2)
+        fig.update_yaxes(title_text="Energy (kWh)", title_font=dict(size=32), row=2, col=2)
         
         chart_path = os.path.join(self.charts_dir, "session_distributions.pdf")
         fig.write_image(chart_path, width=1920, height=1080, scale=2)
@@ -990,7 +1047,7 @@ def main():
     charts_generated.append(analytics.create_autocorrelation_analysis())
     charts_generated.append(analytics.create_correlation_analysis())
     charts_generated.append(analytics.create_session_distributions())
-    charts_generated.append(analytics.create_geospatial_analysis())
+    # charts_generated.append(analytics.create_geospatial_analysis())
     
     print("\\n🤝 Generating Federated Learning Analytics...")
     charts_generated.append(analytics.create_federated_learning_analytics())
