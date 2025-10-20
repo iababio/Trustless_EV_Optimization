@@ -329,27 +329,35 @@ def create_blockchain_charts(data, save_dir):
         name='Optimized System',
         marker_color='lightblue',
         text=data['values'],
-        textposition='auto'
+        textposition='auto',
+        textfont=dict(size=32)
     ))
-    
+
     fig.add_trace(go.Bar(
         x=data['metrics'],
         y=data['baseline_values'],
         name='Baseline System',
         marker_color='lightcoral',
         text=data['baseline_values'],
-        textposition='auto'
+        textposition='auto',
+        textfont=dict(size=32)
     ))
-    
+
     fig.update_layout(
-        title=dict(text='Blockchain Performance: Optimized vs Baseline', font=dict(size=24)),
-        xaxis_title=dict(text='Metrics', font=dict(size=18)),
-        yaxis_title=dict(text='Values', font=dict(size=18)),
-        height=500,
-        font=dict(size=16),
+        title=dict(text='Blockchain Performance: Optimized vs Baseline', font=dict(size=48)),
+        xaxis_title=dict(text='Metrics', font=dict(size=36)),
+        yaxis_title=dict(text='Values', font=dict(size=36)),
+        height=700,
+        font=dict(size=32),
         plot_bgcolor='white',
-        barmode='group'
+        barmode='group',
+        margin=dict(t=150, b=100, l=120, r=100),
+        legend=dict(font=dict(size=32))
     )
+
+    # Update tick font sizes
+    fig.update_xaxes(tickfont=dict(size=28))
+    fig.update_yaxes(tickfont=dict(size=28))
     
     chart_path = os.path.join(save_dir, "blockchain_performance_comparison.pdf")
     fig.write_image(chart_path, width=1920, height=1080, scale=2)
